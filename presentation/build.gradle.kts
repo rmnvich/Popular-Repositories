@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.hilt)
 }
 
@@ -20,6 +21,7 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":theme"))
+    implementation(project(":utils"))
 
     androidX()
     compose()

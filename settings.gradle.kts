@@ -28,4 +28,5 @@ include(
     ":domain",
     ":data",
     ":theme",
+    ":utils",
 )
