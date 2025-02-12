@@ -1,5 +1,7 @@
 import org.gradle.api.Project
 
+//TODO: Use LibrariesForLibs directly
+
 fun Project.androidX() {
     implementation("androidx-core-ktx")
     implementation("androidx-lifecycle-runtime-ktx")
