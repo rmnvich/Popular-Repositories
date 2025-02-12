@@ -39,3 +39,8 @@ fun Project.network() {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
 }
+
+fun Project.paging() {
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
+}
