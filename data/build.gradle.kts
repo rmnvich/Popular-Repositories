@@ -12,5 +12,6 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    network()
     hilt()
 }

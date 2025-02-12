@@ -30,3 +30,12 @@ fun Project.hilt() {
     implementation(libs.dagger.hilt.navigation.compose)
     ksp(libs.dagger.hilt.compiler)
 }
+
+fun Project.network() {
+    implementation(libs.retrofit)
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.moshi.converter)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+}
