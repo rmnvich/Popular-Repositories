@@ -11,7 +11,6 @@ android {
 
 dependencies {
     implementation(project(":mobile:presentation"))
-    implementation(project(":mobile:domain"))
     implementation(project(":mobile:data"))
 
     hilt()
