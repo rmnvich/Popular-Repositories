@@ -1,4 +1,4 @@
-package com.splunk.test
+package com.splunk.test.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
