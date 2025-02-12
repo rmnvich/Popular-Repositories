@@ -24,4 +24,5 @@ dependencyResolutionManagement {
 
 include(
     ":app",
+    ":theme",
 )

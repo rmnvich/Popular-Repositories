@@ -1,4 +1,4 @@
-package com.splunk.test.ui.theme
+package com.splunk.test.theme
 
 import androidx.compose.ui.graphics.Color
 

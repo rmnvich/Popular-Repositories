@@ -15,6 +15,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":theme"))
+
     androidX()
     compose()
     hilt()
