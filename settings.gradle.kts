@@ -24,6 +24,7 @@ dependencyResolutionManagement {
 
 include(
     ":app",
+    ":presentation",
+    ":domain"
     ":theme",
 )
-include(":presentation")
