@@ -24,5 +24,8 @@ dependencyResolutionManagement {
 
 include(
     ":app",
+    ":presentation",
+    ":domain",
+    ":data",
     ":theme",
 )
