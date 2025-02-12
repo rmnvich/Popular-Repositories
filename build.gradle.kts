@@ -1,6 +1,55 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+
 plugins {
     alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.android) apply false
-    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.hilt) apply false
+}
+
+subprojects {
+    plugins.withId("com.android.application") {
+        configure<BaseAppModuleExtension> {
+            compileSdk = 34
+            defaultConfig {
+                versionCode = 1
+                versionName = "1.0.0"
+            }
+            configureAndroidDefaults()
+        }
+    }
+
+    plugins.withId("com.android.library") {
+        configure<LibraryExtension> {
+            compileSdk = 34
+            configureAndroidDefaults()
+        }
+    }
+
+    tasks.withType<KotlinCompilationTask<*>>().configureEach {
+        val options = compilerOptions as KotlinJvmCompilerOptions
+        options.jvmTarget.set(JvmTarget.JVM_1_8)
+    }
+}
+
+private fun BaseExtension.configureAndroidDefaults() {
+    defaultConfig {
+        minSdk = 26
+        targetSdk = 34
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 }
