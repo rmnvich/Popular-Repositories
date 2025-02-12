@@ -1,29 +1,32 @@
+import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.getByType
 
-//TODO: Use LibrariesForLibs directly
+private val Project.libs: LibrariesForLibs
+    get() = extensions.getByType<LibrariesForLibs>()
 
 fun Project.androidX() {
-    implementation("androidx-core-ktx")
-    implementation("androidx-lifecycle-runtime-ktx")
-    implementation("androidx-appcompat")
-    implementation("material")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
 }
 
 fun Project.compose() {
-    implementation("compose-bom")
-    implementation("compose-ui")
-    implementation("compose-activity")
-    implementation("compose-viewmodel")
-    implementation("compose-lifecycle")
-    implementation("compose-material3")
-    implementation("compose-navigation")
-    implementation("compose-ui-graphics")
-    implementation("compose-ui-tooling-preview")
-    debugImplementation("compose-ui-tooling")
+    implementation(libs.compose.bom)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.viewmodel)
+    implementation(libs.compose.lifecycle)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.navigation)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.tooling.preview)
+    debugImplementation(libs.compose.ui.tooling)
 }
 
 fun Project.hilt() {
-    implementation("dagger-hilt")
-    implementation("dagger-hilt-navigation-compose")
-    ksp("dagger-hilt-compiler")
+    implementation(libs.dagger.hilt)
+    implementation(libs.dagger.hilt.navigation.compose)
+    ksp(libs.dagger.hilt.compiler)
 }
