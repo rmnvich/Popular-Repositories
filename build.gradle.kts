@@ -1,3 +1,5 @@
+import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
@@ -19,24 +21,35 @@ subprojects {
                 versionCode = 1
                 versionName = "1.0.0"
             }
-            defaultConfig {
-                minSdk = 26
-                targetSdk = 34
-
-                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-                vectorDrawables {
-                    useSupportLibrary = true
-                }
-            }
-            compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
-            }
+            configureAndroidDefaults()
         }
+    }
 
-        tasks.withType<KotlinCompilationTask<*>>().configureEach {
-            val options = compilerOptions as KotlinJvmCompilerOptions
-            options.jvmTarget.set(JvmTarget.JVM_1_8)
+    plugins.withId("com.android.library") {
+        configure<LibraryExtension> {
+            compileSdk = 34
+            configureAndroidDefaults()
         }
+    }
+
+    tasks.withType<KotlinCompilationTask<*>>().configureEach {
+        val options = compilerOptions as KotlinJvmCompilerOptions
+        options.jvmTarget.set(JvmTarget.JVM_1_8)
+    }
+}
+
+private fun BaseExtension.configureAndroidDefaults() {
+    defaultConfig {
+        minSdk = 26
+        targetSdk = 34
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
