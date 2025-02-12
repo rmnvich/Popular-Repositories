@@ -32,8 +32,16 @@ fun Project.hilt() {
     ksp(libs.dagger.hilt.compiler)
 }
 
-fun Project.network() {
+fun Project.retrofit() {
     implementation(libs.retrofit)
+}
+
+fun Project.okhttp() {
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+}
+
+fun Project.moshi() {
     implementation(libs.moshi)
     implementation(libs.moshi.kotlin)
     implementation(libs.moshi.converter)

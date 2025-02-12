@@ -1,6 +1,6 @@
 package com.splunk.test.data.di
 
-import com.splunk.test.data.datasource.network.GitHubRepositoryService
+import com.splunk.test.data.datasource.GitHubRepositoryService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

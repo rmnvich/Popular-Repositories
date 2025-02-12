@@ -27,6 +27,7 @@ include(
     ":presentation",
     ":domain",
     ":data",
+    ":network",
     ":theme",
     ":utils",
 )

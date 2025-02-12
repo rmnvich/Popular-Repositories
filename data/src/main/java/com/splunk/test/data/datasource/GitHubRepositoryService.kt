@@ -1,4 +1,4 @@
-package com.splunk.test.data.datasource.network
+package com.splunk.test.data.datasource
 
 import com.splunk.test.data.model.TrendingRepositoriesResponse
 import retrofit2.http.GET

@@ -9,9 +9,12 @@ android {
     namespace = "com.splunk.test.data"
 }
 
+
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":network"))
 
-    network()
+    retrofit()
+    moshi()
     hilt()
 }

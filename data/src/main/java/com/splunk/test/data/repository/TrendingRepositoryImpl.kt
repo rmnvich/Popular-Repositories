@@ -1,6 +1,6 @@
 package com.splunk.test.data.repository
 
-import com.splunk.test.data.datasource.network.GitHubRepositoryService
+import com.splunk.test.data.datasource.GitHubRepositoryService
 import com.splunk.test.data.mapper.toDomainModel
 import com.splunk.test.domain.model.GitHubRepository
 import com.splunk.test.domain.repository.TrendingRepository
