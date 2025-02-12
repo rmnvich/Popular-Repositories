@@ -1,22 +1,17 @@
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalog
-import org.gradle.api.artifacts.VersionCatalogsExtension
 
-private val Project.libs: VersionCatalog
-    get() = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
-
-fun Project.implementation(alias: String) {
-    addDependency("implementation", alias)
+fun Project.implementation(dependencyNotation: Any) {
+    addDependency("implementation", dependencyNotation)
 }
 
-fun Project.ksp(alias: String) {
-    addDependency("ksp", alias)
+fun Project.debugImplementation(dependencyNotation: Any) {
+    addDependency("debugImplementation", dependencyNotation)
 }
 
-fun Project.debugImplementation(alias: String) {
-    addDependency("debugImplementation", alias)
+fun Project.ksp(dependencyNotation: Any) {
+    addDependency("ksp", dependencyNotation)
 }
 
-private fun Project.addDependency(configuration: String, alias: String) {
-    dependencies.add(configuration, libs.findLibrary(alias).get())
+private fun Project.addDependency(configuration: String, dependencyNotation: Any) {
+    dependencies.add(configuration, dependencyNotation)
 }
