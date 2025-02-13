@@ -9,7 +9,6 @@ fun Project.androidX() {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
 }
 
 fun Project.compose() {
