@@ -7,4 +7,6 @@
     <string name="no_repositories_found">No repositories found</string>
     <string name="something_went_wrong">Oops… Something went wrong</string>
     <string name="action_retry">Retry</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="light_mode">Light mode</string>
 </resources>

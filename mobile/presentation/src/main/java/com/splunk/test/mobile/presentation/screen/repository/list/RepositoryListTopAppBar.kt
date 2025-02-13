@@ -2,6 +2,7 @@
 
 package com.splunk.test.mobile.presentation.screen.repository.list
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.DurationBasedAnimationSpec
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateDp
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -21,6 +24,7 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import com.splunk.test.mobile.presentation.R
 
 private const val LABEL_PADDING_VERTICAL_ANIMATION = "animation_padding_vertical"
+private const val LABEL_MODE_ICON_ANIMATION = "animation_mode_icon"
 
 @Preview
 @Composable
@@ -37,6 +42,8 @@ private fun RepositoryListTopAppBarPreview() {
         topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
         topAppBarExpandedStateTransition = updateTransition(true, ""),
         topAppBarTransitionSpec = tween(),
+        isDarkTheme = true,
+        onClickToggleTheme = {},
     )
 }
 
@@ -45,6 +52,8 @@ fun RepositoryListTopAppBar(
     topAppBarScrollBehavior: TopAppBarScrollBehavior,
     topAppBarExpandedStateTransition: Transition<Boolean>,
     topAppBarTransitionSpec: DurationBasedAnimationSpec<Dp>,
+    isDarkTheme: Boolean,
+    onClickToggleTheme: () -> Unit,
 ) {
     val paddingVertical by topAppBarExpandedStateTransition.animateDp(
         transitionSpec = { topAppBarTransitionSpec },
@@ -70,6 +79,31 @@ fun RepositoryListTopAppBar(
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onPrimary,
                 )
+            },
+            actions = {
+                IconButton(
+                    modifier = Modifier.padding(end = 8.dp),
+                    onClick = onClickToggleTheme,
+                ) {
+                    AnimatedContent(
+                        targetState = isDarkTheme,
+                        label = LABEL_MODE_ICON_ANIMATION,
+                    ) { isDarkTheme ->
+                        if (isDarkTheme) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_light_mode_24_outline),
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                contentDescription = stringResource(R.string.light_mode),
+                            )
+                        } else {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_dark_mode_24_outline),
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                contentDescription = stringResource(R.string.dark_mode),
+                            )
+                        }
+                    }
+                }
             },
             scrollBehavior = topAppBarScrollBehavior,
             colors = TopAppBarDefaults.topAppBarColors(
