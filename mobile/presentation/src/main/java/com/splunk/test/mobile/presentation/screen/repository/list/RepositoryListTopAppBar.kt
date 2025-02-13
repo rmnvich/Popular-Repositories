@@ -69,8 +69,8 @@ fun RepositoryListTopAppBar(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .statusBarsPadding()
             .background(color = MaterialTheme.colorScheme.primary)
+            .statusBarsPadding()
             .padding(vertical = paddingVertical),
         scrollBehavior = topAppBarScrollBehavior,
         colors = FlexibleTopBarColors(
