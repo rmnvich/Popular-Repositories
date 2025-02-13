@@ -19,7 +19,6 @@ fun Project.compose() {
     implementation(libs.compose.lifecycle)
     implementation(libs.compose.material3)
     implementation(libs.compose.navigation)
-    implementation(libs.compose.coil)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.tooling.preview)
     debugImplementation(libs.compose.ui.tooling)

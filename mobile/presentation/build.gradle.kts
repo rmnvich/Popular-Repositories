@@ -27,4 +27,6 @@ dependencies {
     compose()
     paging()
     hilt()
+
+    implementation(libs.compose.coil)
 }
