@@ -4,8 +4,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import com.splunk.test.mobile.domain.get.GetTrendingRepositoriesUseCase
 import com.splunk.test.mobile.domain.model.GitHubRepository
-import com.splunk.test.mobile.presentation.paging.PagingConstants
-import com.splunk.test.mobile.presentation.paging.TrendingRepositoriesPagingSource
+import com.splunk.test.mobile.presentation.screen.repository.list.paging.PagingConstants
+import com.splunk.test.mobile.presentation.screen.repository.list.paging.TrendingRepositoriesPagingSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

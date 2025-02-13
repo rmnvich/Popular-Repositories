@@ -10,7 +10,7 @@ import androidx.paging.map
 import com.splunk.test.core.utils.coroutines.CoroutineDispatchers
 import com.splunk.test.mobile.presentation.mapper.RepositoryUiMapper
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
-import com.splunk.test.mobile.presentation.paging.TrendingRepositoriesPagingSource
+import com.splunk.test.mobile.presentation.screen.repository.list.paging.TrendingRepositoriesPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

@@ -1,4 +1,4 @@
-package com.splunk.test.mobile.presentation.paging
+package com.splunk.test.mobile.presentation.screen.repository.list.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

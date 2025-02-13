@@ -40,7 +40,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.splunk.test.mobile.presentation.R
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
-import com.splunk.test.mobile.presentation.paging.PagingConstants
+import com.splunk.test.mobile.presentation.screen.repository.list.paging.PagingConstants
 import com.splunk.test.mobile.presentation.utils.widget.shimmerBrush
 import kotlinx.coroutines.flow.flowOf
 
