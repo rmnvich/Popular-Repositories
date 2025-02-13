@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
@@ -19,7 +20,7 @@ private fun LanguageItemPreview() {
     LanguageItem(
         language = RepositoryUiModel.LanguageUiModel(
             name = "Kotlin",
-            color = 13666500,
+            color = 0xFFD088C4.toInt(),
         )
     )
 }
@@ -30,18 +31,19 @@ fun LanguageItem(
     language: RepositoryUiModel.LanguageUiModel,
 ) {
     val color = Color(language.color)
-    Box(
-        modifier = modifier
-            .background(
-                color = color.copy(alpha = 0.2f),
-                shape = CircleShape,
-            )
-    ) {
+    Box(modifier = modifier) {
         Text(
-            modifier = Modifier.padding(vertical = 8.dp, horizontal = 12.dp),
+            modifier = Modifier
+                .background(
+                    color = color.copy(alpha = 0.2f),
+                    shape = CircleShape,
+                )
+                .padding(vertical = 8.dp, horizontal = 12.dp),
             text = language.name,
             color = color,
             style = MaterialTheme.typography.labelMedium,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
         )
     }
 }
