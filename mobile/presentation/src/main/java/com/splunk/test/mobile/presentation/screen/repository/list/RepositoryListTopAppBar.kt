@@ -9,7 +9,6 @@ import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -66,64 +65,60 @@ fun RepositoryListTopAppBar(
         if (isExpanded) 8.dp else 0.dp
     }
 
-    Column(
+    SplunkTopAppBar(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .statusBarsPadding()
             .background(color = MaterialTheme.colorScheme.primary)
-    ) {
-        SplunkTopAppBar(
-            modifier = Modifier
-                .padding(vertical = paddingVertical),
-            scrollBehavior = topAppBarScrollBehavior,
-            colors = FlexibleTopBarColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                scrolledContainerColor = MaterialTheme.colorScheme.primary,
-            ),
-            content = {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
+            .padding(vertical = paddingVertical),
+        scrollBehavior = topAppBarScrollBehavior,
+        colors = FlexibleTopBarColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            scrolledContainerColor = MaterialTheme.colorScheme.primary,
+        ),
+        content = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(
+                            start = 24.dp,
+                            end = 8.dp,
+                            top = 12.dp,
+                            bottom = 12.dp,
+                        ),
+                    text = stringResource(R.string.app_name),
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                )
+                IconButton(
+                    modifier = Modifier.padding(end = 8.dp),
+                    onClick = onClickToggleTheme,
                 ) {
-                    Text(
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(
-                                start = 24.dp,
-                                end = 8.dp,
-                                top = 12.dp,
-                                bottom = 12.dp,
-                            ),
-                        text = stringResource(R.string.app_name),
-                        style = MaterialTheme.typography.headlineSmall,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                    )
-                    IconButton(
-                        modifier = Modifier.padding(end = 8.dp),
-                        onClick = onClickToggleTheme,
-                    ) {
-                        AnimatedContent(
-                            targetState = isDarkTheme,
-                            label = LABEL_MODE_ICON_ANIMATION,
-                        ) { isDarkTheme ->
-                            if (isDarkTheme) {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_light_mode_24_outline),
-                                    tint = MaterialTheme.colorScheme.onPrimary,
-                                    contentDescription = stringResource(R.string.light_mode),
-                                )
-                            } else {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_dark_mode_24_outline),
-                                    tint = MaterialTheme.colorScheme.onPrimary,
-                                    contentDescription = stringResource(R.string.dark_mode),
-                                )
-                            }
+                    AnimatedContent(
+                        targetState = isDarkTheme,
+                        label = LABEL_MODE_ICON_ANIMATION,
+                    ) { isDarkTheme ->
+                        if (isDarkTheme) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_light_mode_24_outline),
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                contentDescription = stringResource(R.string.light_mode),
+                            )
+                        } else {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_dark_mode_24_outline),
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                contentDescription = stringResource(R.string.dark_mode),
+                            )
                         }
                     }
                 }
             }
-        )
-    }
+        }
+    )
 }
