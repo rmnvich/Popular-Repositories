@@ -7,7 +7,7 @@ import retrofit2.http.Url
 
 interface GitHubRepositoryService {
 
-    @GET("search/repositories?q=stars:>1000&sort=start&order=desc")
+    @GET("search/repositories?q=stars:>1000&sort=stars&order=desc")
     suspend fun getTrendingRepositories(
         @Query("page") page: Int,
         @Query("per_page") pageSize: Int,
