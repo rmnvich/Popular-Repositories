@@ -26,7 +26,7 @@ object PagingModule {
     fun providePagingConfig(): PagingConfig = PagingConfig(
         pageSize = PagingConstants.TRENDING_REPOSITORIES_PAGE_SIZE,
         prefetchDistance = PagingConstants.TRENDING_REPOSITORIES_PAGE_SIZE,
-        initialLoadSize = PagingConstants.TRENDING_REPOSITORIES_PAGE_SIZE * 2,
+        initialLoadSize = PagingConstants.TRENDING_REPOSITORIES_PAGE_SIZE,
         enablePlaceholders = PagingConstants.TRENDING_REPOSITORIES_ENABLE_PLACEHOLDERS,
     )
 }
