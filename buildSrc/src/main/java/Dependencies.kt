@@ -31,10 +31,6 @@ fun Project.hilt() {
     ksp(libs.dagger.hilt.compiler)
 }
 
-fun Project.retrofit() {
-    implementation(libs.retrofit)
-}
-
 fun Project.okhttp() {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)

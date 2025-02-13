@@ -25,9 +25,8 @@ android {
     }
 }
 
-
 dependencies {
-    retrofit()
+    implementation(libs.retrofit)
     okhttp()
     moshi()
     hilt()

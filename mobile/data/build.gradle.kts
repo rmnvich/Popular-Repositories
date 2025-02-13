@@ -9,12 +9,11 @@ android {
     namespace = "com.splunk.test.mobile.data"
 }
 
-
 dependencies {
     implementation(project(":core:network"))
     implementation(project(":mobile:domain"))
 
-    retrofit()
+    implementation(libs.retrofit)
     moshi()
     hilt()
 }
