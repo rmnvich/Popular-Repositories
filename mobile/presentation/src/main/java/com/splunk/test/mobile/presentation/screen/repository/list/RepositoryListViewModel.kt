@@ -29,7 +29,6 @@ class RepositoryListViewModel @Inject constructor(
         config = trendingRepositoriesPagingConfig,
         pagingSourceFactory = { trendingRepositoriesPagingSource },
     ).flow
-        .cachedIn(viewModelScope)
         .map { pagingData ->
             pagingData.map { repository ->
                 withContext(dispatchers.default) {
@@ -37,12 +36,9 @@ class RepositoryListViewModel @Inject constructor(
                 }
             }
         }
+        .cachedIn(viewModelScope)
 
     fun onClickRepository(uiModel: RepositoryUiModel) {
-        //TODO
-    }
-
-    fun onClickRetry() {
         //TODO
     }
 }

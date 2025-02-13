@@ -40,7 +40,7 @@ fun RepositoryListScreen(viewModel: RepositoryListViewModel) {
     RepositoryListScreen(
         repositoryItems = repositoryItems,
         onClickRepository = viewModel::onClickRepository,
-        onClickRetry = viewModel::onClickRetry,
+        onClickRetry = { repositoryItems.retry() },
     )
 }
 
