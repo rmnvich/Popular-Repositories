@@ -23,13 +23,14 @@ class RepositoryUiMapperImpl @Inject constructor(
         isPrivate = model.isPrivate,
         starCount = model.starCount,
         forkCount = model.forkCount,
-        languages = model.languages?.map { language ->
-            RepositoryUiModel.LanguageUiModel(
-                name = language,
-                color = colorGenerator.getColorForLanguage(language)
-            )
-        },
+        mainLanguage = model.mainLanguage?.toLanguageUiModel(),
+        allLanguages = model.allLanguages?.map { it.toLanguageUiModel() },
         url = model.url,
         createdAt = dateConverter.formatDate(model.createdAt),
+    )
+
+    private fun String.toLanguageUiModel() = RepositoryUiModel.LanguageUiModel(
+        name = this,
+        color = colorGenerator.getColorForLanguage(this)
     )
 }

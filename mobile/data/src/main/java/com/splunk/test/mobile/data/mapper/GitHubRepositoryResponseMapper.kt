@@ -15,12 +15,13 @@ fun GitHubRepositoryResponse.toDomainModel(
     isPrivate = this.isPrivate,
     starCount = this.starCount,
     forkCount = this.forkCount,
-    languages = languages?.keys,
+    mainLanguage = this.language,
+    allLanguages = languages?.keys,
     url = this.url,
     createdAt = this.createdAt,
 )
 
-fun OwnerResponse.toDomainModel(): GitHubRepository.Owner = GitHubRepository.Owner(
+private fun OwnerResponse.toDomainModel(): GitHubRepository.Owner = GitHubRepository.Owner(
     id = this.id,
     login = this.login,
     avatarUrl = this.avatarUrl,

@@ -9,7 +9,8 @@ data class GitHubRepository(
     val isPrivate: Boolean,
     val starCount: Int,
     val forkCount: Int,
-    val languages: Set<String>?,
+    val mainLanguage: String?,
+    val allLanguages: Set<String>?,
     val url: String?,
     val createdAt: String,
 ) {

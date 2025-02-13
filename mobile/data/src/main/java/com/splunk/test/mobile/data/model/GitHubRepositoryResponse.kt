@@ -11,6 +11,7 @@ data class GitHubRepositoryResponse(
     @Json(name = "description") val description: String?,
     @Json(name = "owner") val owner: OwnerResponse,
     @Json(name = "private") val isPrivate: Boolean,
+    @Json(name = "language") val language: String?,
     @Json(name = "languages_url") val languagesUrl: String?,
     @Json(name = "stargazers_count") val starCount: Int,
     @Json(name = "forks_count") val forkCount: Int,

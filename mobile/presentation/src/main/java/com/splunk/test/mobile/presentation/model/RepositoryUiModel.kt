@@ -13,7 +13,8 @@ data class RepositoryUiModel(
     val isPrivate: Boolean,
     val starCount: Int,
     val forkCount: Int,
-    val languages: List<LanguageUiModel>?,
+    val mainLanguage: LanguageUiModel?,
+    val allLanguages: List<LanguageUiModel>?,
     val url: String?,
     val createdAt: String,
 ) : Parcelable {
