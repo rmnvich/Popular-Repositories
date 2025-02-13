@@ -73,7 +73,7 @@ fun RepositoryListContent(
         transitionSpec = { topAppBarTransitionSpec },
         label = LABEL_CONTENT_CORNER_RADIUS_ANIMATION,
     ) { isExpanded ->
-        if (isExpanded) 36.dp else 12.dp
+        if (isExpanded) 36.dp else 0.dp
     }
 
     Box(
