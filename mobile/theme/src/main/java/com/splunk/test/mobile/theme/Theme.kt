@@ -1,6 +1,7 @@
 package com.splunk.test.mobile.theme
 
 import android.app.Activity
+import android.os.Build
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -16,7 +17,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private const val LABEL_SWITCH_THEME_ANIMATION = "animation_switch_theme"
-private const val SWITCH_THEME_ANIMATION_DURATION = 350
+private const val SWITCH_THEME_ANIMATION_DURATION = 300
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -39,6 +40,9 @@ fun SplunkTestTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                window.isNavigationBarContrastEnforced = false
+            }
             WindowCompat.getInsetsController(window, view).let {
                 it.isAppearanceLightStatusBars = darkTheme
                 it.isAppearanceLightNavigationBars = !darkTheme
