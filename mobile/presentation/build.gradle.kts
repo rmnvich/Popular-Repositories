@@ -24,6 +24,7 @@ dependencies {
     implementation(project(":mobile:theme"))
 
     androidX()
+    datastore()
     compose()
     paging()
     hilt()

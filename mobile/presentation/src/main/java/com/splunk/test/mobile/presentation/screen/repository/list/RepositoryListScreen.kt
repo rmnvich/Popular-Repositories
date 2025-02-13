@@ -18,6 +18,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
+import com.splunk.test.mobile.presentation.theme.ThemeViewModel
 import kotlinx.coroutines.flow.flowOf
 
 private const val LABEL_TRANSITION_SCROLL_OFFSET = "transition_scroll_offset"

@@ -47,3 +47,8 @@ fun Project.paging() {
     implementation(libs.paging.runtime)
     implementation(libs.paging.compose)
 }
+
+fun Project.datastore() {
+    implementation(libs.androidx.datastore.core)
+    implementation(libs.androidx.datastore.preferences)
+}
