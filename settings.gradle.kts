@@ -24,8 +24,10 @@ dependencyResolutionManagement {
 
 include(
     ":app",
-    ":presentation",
-    ":domain",
-    ":data",
-    ":theme",
+    ":mobile:presentation",
+    ":mobile:domain",
+    ":mobile:data",
+    ":mobile:theme",
+    ":core:network",
+    ":core:utils",
 )

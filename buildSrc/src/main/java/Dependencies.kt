@@ -9,7 +9,6 @@ fun Project.androidX() {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
 }
 
 fun Project.compose() {
@@ -29,4 +28,22 @@ fun Project.hilt() {
     implementation(libs.dagger.hilt)
     implementation(libs.dagger.hilt.navigation.compose)
     ksp(libs.dagger.hilt.compiler)
+}
+
+fun Project.okhttp() {
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+}
+
+fun Project.moshi() {
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.moshi.converter)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+}
+
+fun Project.paging() {
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
 }

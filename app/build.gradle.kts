@@ -10,10 +10,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":presentation"))
-    implementation(project(":domain"))
-    implementation(project(":data"))
-    implementation(project(":theme"))
+    implementation(project(":mobile:presentation"))
+    implementation(project(":mobile:data"))
 
     hilt()
 }
