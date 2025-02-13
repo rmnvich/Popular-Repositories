@@ -2,21 +2,25 @@
 agp = "8.7.3"
 ksp = "2.1.10-1.0.29"
 kotlin = "2.1.10"
+#Requires target API 35, which is unstable for now.
+#noinspection GradleDependency
 androidx-core-ktx = "1.13.1"
 androidx-lifecycle-runtime-ktx = "2.8.7"
 androidx-appcompat = "1.7.0"
 compose-compiler = "1.5.15"
-compose-bom = "2025.01.01"
-compose-ui = "1.7.7"
+compose-bom = "2025.02.00"
+compose-ui = "1.7.8"
+#Requires target API 35, which is unstable for now.
+#noinspection GradleDependency
 compose-activity = "1.9.0"
 compose-viewmodel = "2.8.7"
 compose-lifecycle = "2.8.7"
 compose-material3 = "1.3.1"
-compose-navigation = "2.8.6"
+compose-navigation = "2.8.7"
 compose_coil = "2.6.0"
-compose-ui-graphics = "1.7.7"
-compose-ui-tooling = "1.7.7"
-compose-ui-tooling-preview = "1.7.7"
+compose-ui-graphics = "1.7.8"
+compose-ui-tooling = "1.7.8"
+compose-ui-tooling-preview = "1.7.8"
 dagger-hilt = "2.51.1"
 dagger-hilt-compiler = "2.51.1"
 dagger-hilt-navigation-compose = "1.2.0"
@@ -27,12 +31,15 @@ retrofit = "2.9.0"
 moshi = "1.15.0"
 moshiConverter = "2.9.0"
 okhttp = "4.12.0"
-paging = "3.3.5"
+paging = "3.3.6"
+datastore = "1.1.2"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core-ktx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle-runtime-ktx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+androidx-datastore-core = { module = "androidx.datastore:datastore-core", version.ref = "datastore" }
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose-ui" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "compose-activity" }

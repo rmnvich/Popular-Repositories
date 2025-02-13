@@ -18,6 +18,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
+import com.splunk.test.mobile.presentation.theme.ThemeViewModel
 import kotlinx.coroutines.flow.flowOf
 
 private const val LABEL_TRANSITION_SCROLL_OFFSET = "transition_scroll_offset"
@@ -29,18 +30,26 @@ private fun RepositoryListScreenPreview() {
     val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
     RepositoryListScreen(
         repositoryItems = flow.collectAsLazyPagingItems(),
+        isDarkTheme = false,
         onClickRepository = {},
         onClickRetry = {},
+        onClickToggleTheme = {}
     )
 }
 
 @Composable
-fun RepositoryListScreen(viewModel: RepositoryListViewModel) {
-    val repositoryItems = viewModel.repositoriesPagingData.collectAsLazyPagingItems()
+fun RepositoryListScreen(
+    repositoryListViewModel: RepositoryListViewModel,
+    themeViewModel: ThemeViewModel,
+    isDarkTheme: Boolean,
+) {
+    val repositoryItems = repositoryListViewModel.repositoriesPagingData.collectAsLazyPagingItems()
     RepositoryListScreen(
         repositoryItems = repositoryItems,
-        onClickRepository = viewModel::onClickRepository,
+        isDarkTheme = isDarkTheme,
+        onClickRepository = repositoryListViewModel::onClickRepository,
         onClickRetry = { repositoryItems.retry() },
+        onClickToggleTheme = themeViewModel::onClickToggleTheme,
     )
 }
 
@@ -48,8 +57,10 @@ fun RepositoryListScreen(viewModel: RepositoryListViewModel) {
 @Composable
 private fun RepositoryListScreen(
     repositoryItems: LazyPagingItems<RepositoryUiModel>,
+    isDarkTheme: Boolean,
     onClickRepository: (RepositoryUiModel) -> Unit,
     onClickRetry: () -> Unit,
+    onClickToggleTheme: () -> Unit,
 ) {
     val topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val topAppBarExpandedState by remember {
@@ -72,6 +83,8 @@ private fun RepositoryListScreen(
                 topAppBarScrollBehavior = topAppBarScrollBehavior,
                 topAppBarExpandedStateTransition = topAppBarExpandedStateTransition,
                 topAppBarTransitionSpec = topAppBarTransitionSpec,
+                isDarkTheme = isDarkTheme,
+                onClickToggleTheme = onClickToggleTheme,
             )
         },
         content = { paddingValues ->

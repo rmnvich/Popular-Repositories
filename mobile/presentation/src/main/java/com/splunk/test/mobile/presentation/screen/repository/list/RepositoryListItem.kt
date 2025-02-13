@@ -173,7 +173,7 @@ fun LazyItemScope.RepositoryListItem(
 
                 Icon(
                     modifier = Modifier.padding(start = 16.dp),
-                    painter = painterResource(R.drawable.ic_star_24_filled),
+                    painter = painterResource(R.drawable.ic_star_24_outline),
                     tint = MaterialTheme.colorScheme.surfaceTint,
                     contentDescription = stringResource(R.string.stars),
                 )
