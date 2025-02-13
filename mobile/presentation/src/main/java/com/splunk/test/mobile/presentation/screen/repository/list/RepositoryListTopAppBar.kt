@@ -26,20 +26,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.splunk.test.mobile.presentation.R
-import com.splunk.test.mobile.theme.SplunkTestTheme
 
 private const val LABEL_PADDING_VERTICAL_ANIMATION = "animation_padding_vertical"
 
 @Preview
 @Composable
 private fun RepositoryListTopAppBarPreview() {
-    SplunkTestTheme {
-        RepositoryListTopAppBar(
-            topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
-            topAppBarExpandedStateTransition = updateTransition(true, ""),
-            topAppBarTransitionSpec = tween(),
-        )
-    }
+    RepositoryListTopAppBar(
+        topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+        topAppBarExpandedStateTransition = updateTransition(true, ""),
+        topAppBarTransitionSpec = tween(),
+    )
 }
 
 @Composable
