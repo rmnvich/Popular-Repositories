@@ -2,7 +2,6 @@
 
 package com.splunk.test.mobile.presentation.screen.repository.list
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.DurationBasedAnimationSpec
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateDp
@@ -36,7 +35,6 @@ import com.splunk.test.mobile.presentation.utils.widget.FlexibleTopBarColors
 import com.splunk.test.mobile.presentation.utils.widget.SplunkTopAppBar
 
 private const val LABEL_PADDING_VERTICAL_ANIMATION = "animation_padding_vertical"
-private const val LABEL_MODE_ICON_ANIMATION = "animation_mode_icon"
 
 @Preview
 @Composable
@@ -99,23 +97,18 @@ fun RepositoryListTopAppBar(
                     modifier = Modifier.padding(end = 8.dp),
                     onClick = onClickToggleTheme,
                 ) {
-                    AnimatedContent(
-                        targetState = isDarkTheme,
-                        label = LABEL_MODE_ICON_ANIMATION,
-                    ) { isDarkTheme ->
-                        if (isDarkTheme) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_light_mode_24_outline),
-                                tint = MaterialTheme.colorScheme.onPrimary,
-                                contentDescription = stringResource(R.string.light_mode),
-                            )
-                        } else {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_dark_mode_24_outline),
-                                tint = MaterialTheme.colorScheme.onPrimary,
-                                contentDescription = stringResource(R.string.dark_mode),
-                            )
-                        }
+                    if (isDarkTheme) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_light_mode_24_outline),
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            contentDescription = stringResource(R.string.light_mode),
+                        )
+                    } else {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_dark_mode_24_outline),
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            contentDescription = stringResource(R.string.dark_mode),
+                        )
                     }
                 }
             }
