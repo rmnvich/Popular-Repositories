@@ -67,7 +67,12 @@ fun RepositoryDetailsContent(
                 ),
             )
             .background(color = MaterialTheme.colorScheme.surfaceContainerLowest)
-            .padding(all = 24.dp)
+            .padding(
+                start = 24.dp,
+                end = 24.dp,
+                top = 24.dp,
+                bottom = 128.dp,
+            )
     ) {
         UserInfo(owner = uiModel.owner)
         Text(
