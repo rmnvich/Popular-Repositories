@@ -75,12 +75,6 @@ fun RepositoryDetailsContent(
             )
     ) {
         UserInfo(owner = uiModel.owner)
-        Text(
-            modifier = Modifier.padding(top = 24.dp),
-            text = uiModel.fullName,
-            color = MaterialTheme.colorScheme.primary,
-            style = MaterialTheme.typography.headlineSmall,
-        )
         if (!uiModel.url.isNullOrBlank()) {
             val context = LocalContext.current
             Button(
@@ -95,13 +89,13 @@ fun RepositoryDetailsContent(
                 Text("Open in browser")
             }
         }
+        Text(
+            modifier = Modifier.padding(top = 24.dp),
+            text = uiModel.fullName,
+            color = MaterialTheme.colorScheme.primary,
+            style = MaterialTheme.typography.headlineSmall,
+        )
         if (!uiModel.description.isNullOrBlank()) {
-            Text(
-                modifier = Modifier.padding(top = 16.dp),
-                text = stringResource(R.string.label_description),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.labelMedium,
-            )
             Text(
                 modifier = Modifier.padding(top = 4.dp),
                 text = uiModel.description,
