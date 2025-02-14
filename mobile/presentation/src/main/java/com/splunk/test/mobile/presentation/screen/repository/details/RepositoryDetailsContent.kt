@@ -49,56 +49,6 @@ import com.splunk.test.mobile.presentation.model.RepositoryUiModel
 import com.splunk.test.mobile.presentation.screen.repository.widget.LanguageItem
 import com.splunk.test.mobile.presentation.utils.widget.getSplunkTopAppBarCornerRadius
 
-@Preview
-@Composable
-private fun RepositoryDetailsContentPreview() {
-    RepositoryDetailsContent(
-        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
-        uiModel = RepositoryUiModel(
-            id = 0,
-            name = "Splunk Test",
-            fullName = "rmnvich/SplunkTest",
-            description = "Home assignment for the Splunk company",
-            owner = RepositoryUiModel.OwnerUiModel(
-                login = "Vadzim Ramanovich",
-                type = "Organization",
-                avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
-            ),
-            isPrivate = false,
-            starCountFormatted = "520,780",
-            starCountShorten = "520.7k",
-            forkCountFormatted = "107,000",
-            forkCountShorten = "107.0k",
-            mainLanguage = RepositoryUiModel.LanguageUiModel(
-                name = "Kotlin",
-                color = 13666500,
-            ),
-            allLanguages = listOf(
-                RepositoryUiModel.LanguageUiModel(
-                    name = "Kotlin",
-                    color = Color.Red.toArgb(),
-                ),
-                RepositoryUiModel.LanguageUiModel(
-                    name = "Java",
-                    color = Color.Blue.toArgb(),
-                ),
-                RepositoryUiModel.LanguageUiModel(
-                    name = "C++",
-                    color = Color.Green.toArgb(),
-                ),
-                RepositoryUiModel.LanguageUiModel(
-                    name = "Python",
-                    color = Color.Magenta.toArgb(),
-                )
-            ),
-            url = "https://github.com/rmnvich/SplunkTest",
-            createdAt = "Dec 24, 2014",
-            issueCountFormatted = "208",
-            watcherCountFormatted = "30,601",
-        ),
-    )
-}
-
 @Composable
 fun RepositoryDetailsContent(
     scrollBehavior: TopAppBarScrollBehavior,
@@ -274,4 +224,54 @@ private fun RepositoryMetaData(
             style = MaterialTheme.typography.bodyMedium,
         )
     }
+}
+
+@Preview
+@Composable
+private fun RepositoryDetailsContentPreview() {
+    RepositoryDetailsContent(
+        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+        uiModel = RepositoryUiModel(
+            id = 0,
+            name = "Splunk Test",
+            fullName = "rmnvich/SplunkTest",
+            description = "Home assignment for the Splunk company",
+            owner = RepositoryUiModel.OwnerUiModel(
+                login = "Vadzim Ramanovich",
+                type = "Organization",
+                avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
+            ),
+            isPrivate = false,
+            starCountFormatted = "520,780",
+            starCountShorten = "520.7k",
+            forkCountFormatted = "107,000",
+            forkCountShorten = "107.0k",
+            mainLanguage = RepositoryUiModel.LanguageUiModel(
+                name = "Kotlin",
+                color = 13666500,
+            ),
+            allLanguages = listOf(
+                RepositoryUiModel.LanguageUiModel(
+                    name = "Kotlin",
+                    color = Color.Red.toArgb(),
+                ),
+                RepositoryUiModel.LanguageUiModel(
+                    name = "Java",
+                    color = Color.Blue.toArgb(),
+                ),
+                RepositoryUiModel.LanguageUiModel(
+                    name = "C++",
+                    color = Color.Green.toArgb(),
+                ),
+                RepositoryUiModel.LanguageUiModel(
+                    name = "Python",
+                    color = Color.Magenta.toArgb(),
+                )
+            ),
+            url = "https://github.com/rmnvich/SplunkTest",
+            createdAt = "Dec 24, 2014",
+            issueCountFormatted = "208",
+            watcherCountFormatted = "30,601",
+        ),
+    )
 }

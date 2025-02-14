@@ -33,43 +33,6 @@ import com.splunk.test.mobile.presentation.R
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
 import com.splunk.test.mobile.presentation.screen.repository.widget.LanguageItem
 
-@Preview
-@Composable
-private fun RepositoryListItemPreview() {
-    LazyColumn {
-        items(1) {
-            RepositoryListItem(
-                uiModel = RepositoryUiModel(
-                    id = 0,
-                    name = "Splunk Test",
-                    fullName = "rmnvich / SplunkTest",
-                    description = "Home assignment for the Splunk company",
-                    owner = RepositoryUiModel.OwnerUiModel(
-                        login = "Vadzim Ramanovich",
-                        type = "Organization",
-                        avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
-                    ),
-                    isPrivate = true,
-                    starCountFormatted = "520,780",
-                    starCountShorten = "520.7k",
-                    forkCountFormatted = "107,000",
-                    forkCountShorten = "107.0k",
-                    mainLanguage = RepositoryUiModel.LanguageUiModel(
-                        name = "Kotlin",
-                        color = 13666500,
-                    ),
-                    allLanguages = null,
-                    url = null,
-                    createdAt = "Dec 24, 2014",
-                    issueCountFormatted = "208",
-                    watcherCountFormatted = "30,601",
-                ),
-                onClickRepository = {}
-            )
-        }
-    }
-}
-
 @Composable
 fun LazyItemScope.RepositoryListItem(
     uiModel: RepositoryUiModel,
@@ -187,6 +150,43 @@ fun LazyItemScope.RepositoryListItem(
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun RepositoryListItemPreview() {
+    LazyColumn {
+        items(1) {
+            RepositoryListItem(
+                uiModel = RepositoryUiModel(
+                    id = 0,
+                    name = "Splunk Test",
+                    fullName = "rmnvich / SplunkTest",
+                    description = "Home assignment for the Splunk company",
+                    owner = RepositoryUiModel.OwnerUiModel(
+                        login = "Vadzim Ramanovich",
+                        type = "Organization",
+                        avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
+                    ),
+                    isPrivate = true,
+                    starCountFormatted = "520,780",
+                    starCountShorten = "520.7k",
+                    forkCountFormatted = "107,000",
+                    forkCountShorten = "107.0k",
+                    mainLanguage = RepositoryUiModel.LanguageUiModel(
+                        name = "Kotlin",
+                        color = 13666500,
+                    ),
+                    allLanguages = null,
+                    url = null,
+                    createdAt = "Dec 24, 2014",
+                    issueCountFormatted = "208",
+                    watcherCountFormatted = "30,601",
+                ),
+                onClickRepository = {}
+            )
         }
     }
 }

@@ -21,15 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.splunk.test.mobile.presentation.R
 import com.splunk.test.mobile.presentation.utils.widget.getSplunkTopAppBarVerticalPadding
 
-@Preview
-@Composable
-private fun RepositoryDetailsTopAppBarPreview() {
-    RepositoryDetailsTopAppBar(
-        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
-        onClickBack = {},
-    )
-}
-
 @Composable
 fun RepositoryDetailsTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
@@ -62,5 +53,14 @@ fun RepositoryDetailsTopAppBar(
             containerColor = MaterialTheme.colorScheme.primary,
             scrolledContainerColor = MaterialTheme.colorScheme.primary,
         )
+    )
+}
+
+@Preview
+@Composable
+private fun RepositoryDetailsTopAppBarPreview() {
+    RepositoryDetailsTopAppBar(
+        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+        onClickBack = {},
     )
 }

@@ -16,19 +16,6 @@ import com.splunk.test.mobile.presentation.model.RepositoryUiModel
 import com.splunk.test.mobile.presentation.theme.ThemeViewModel
 import kotlinx.coroutines.flow.flowOf
 
-@Preview
-@Composable
-private fun RepositoryListScreenPreview() {
-    val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
-    RepositoryListScreen(
-        repositoryItems = flow.collectAsLazyPagingItems(),
-        isDarkTheme = false,
-        onClickRepository = {},
-        onClickRetry = {},
-        onClickToggleTheme = {}
-    )
-}
-
 @Composable
 fun RepositoryListScreen(
     repositoryListViewModel: RepositoryListViewModel,
@@ -76,5 +63,18 @@ private fun RepositoryListScreen(
                 onClickRetry = onClickRetry,
             )
         }
+    )
+}
+
+@Preview
+@Composable
+private fun RepositoryListScreenPreview() {
+    val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
+    RepositoryListScreen(
+        repositoryItems = flow.collectAsLazyPagingItems(),
+        isDarkTheme = false,
+        onClickRepository = {},
+        onClickRetry = {},
+        onClickToggleTheme = {}
     )
 }

@@ -28,16 +28,6 @@ import com.splunk.test.mobile.presentation.utils.widget.FlexibleTopBarColors
 import com.splunk.test.mobile.presentation.utils.widget.SplunkTopAppBar
 import com.splunk.test.mobile.presentation.utils.widget.getSplunkTopAppBarVerticalPadding
 
-@Preview
-@Composable
-private fun RepositoryListTopAppBarPreview() {
-    RepositoryListTopAppBar(
-        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
-        isDarkTheme = true,
-        onClickToggleTheme = {},
-    )
-}
-
 @Composable
 fun RepositoryListTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
@@ -92,5 +82,15 @@ fun RepositoryListTopAppBar(
                 }
             }
         }
+    )
+}
+
+@Preview
+@Composable
+private fun RepositoryListTopAppBarPreview() {
+    RepositoryListTopAppBar(
+        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+        isDarkTheme = true,
+        onClickToggleTheme = {},
     )
 }

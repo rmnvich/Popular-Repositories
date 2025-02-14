@@ -43,19 +43,6 @@ import com.splunk.test.mobile.presentation.utils.widget.getSplunkTopAppBarCorner
 import com.splunk.test.mobile.presentation.utils.widget.shimmerBrush
 import kotlinx.coroutines.flow.flowOf
 
-@Preview
-@Composable
-private fun RepositoryListContentPreview() {
-    val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
-    RepositoryListContent(
-        paddingValues = PaddingValues(),
-        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
-        repositoryItems = flow.collectAsLazyPagingItems(),
-        onClickRepository = {},
-        onClickRetry = {},
-    )
-}
-
 @Composable
 fun RepositoryListContent(
     paddingValues: PaddingValues,
@@ -253,4 +240,17 @@ private fun FooterErrorState(onRetry: () -> Unit) {
             )
         }
     }
+}
+
+@Preview
+@Composable
+private fun RepositoryListContentPreview() {
+    val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
+    RepositoryListContent(
+        paddingValues = PaddingValues(),
+        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+        repositoryItems = flow.collectAsLazyPagingItems(),
+        onClickRepository = {},
+        onClickRetry = {},
+    )
 }

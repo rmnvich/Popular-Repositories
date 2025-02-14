@@ -23,39 +23,6 @@ import androidx.compose.ui.unit.dp
 import com.splunk.test.mobile.presentation.R
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
 
-@Preview
-@Composable
-private fun RepositoryDetailsScreenPreview() {
-    RepositoryDetailsScreen(
-        uiModel = RepositoryUiModel(
-            id = 0,
-            name = "Splunk Test",
-            fullName = "rmnvich / SplunkTest",
-            description = "Home assignment for the Splunk company",
-            owner = RepositoryUiModel.OwnerUiModel(
-                login = "Vadzim Ramanovich",
-                type = "Organization",
-                avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
-            ),
-            isPrivate = true,
-            starCountFormatted = "520,780",
-            starCountShorten = "520.7k",
-            forkCountFormatted = "107,000",
-            forkCountShorten = "107.0k",
-            mainLanguage = RepositoryUiModel.LanguageUiModel(
-                name = "Kotlin",
-                color = 13666500,
-            ),
-            allLanguages = null,
-            url = null,
-            createdAt = "Dec 24, 2014",
-            issueCountFormatted = "208",
-            watcherCountFormatted = "30,601",
-        ),
-        onClickBack = {},
-    )
-}
-
 @Composable
 fun RepositoryDetailsScreen(
     viewModel: RepositoryDetailsViewModel,
@@ -116,4 +83,37 @@ private fun ErrorState() {
             style = MaterialTheme.typography.bodyLarge,
         )
     }
+}
+
+@Preview
+@Composable
+private fun RepositoryDetailsScreenPreview() {
+    RepositoryDetailsScreen(
+        uiModel = RepositoryUiModel(
+            id = 0,
+            name = "Splunk Test",
+            fullName = "rmnvich / SplunkTest",
+            description = "Home assignment for the Splunk company",
+            owner = RepositoryUiModel.OwnerUiModel(
+                login = "Vadzim Ramanovich",
+                type = "Organization",
+                avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
+            ),
+            isPrivate = true,
+            starCountFormatted = "520,780",
+            starCountShorten = "520.7k",
+            forkCountFormatted = "107,000",
+            forkCountShorten = "107.0k",
+            mainLanguage = RepositoryUiModel.LanguageUiModel(
+                name = "Kotlin",
+                color = 13666500,
+            ),
+            allLanguages = null,
+            url = null,
+            createdAt = "Dec 24, 2014",
+            issueCountFormatted = "208",
+            watcherCountFormatted = "30,601",
+        ),
+        onClickBack = {},
+    )
 }
