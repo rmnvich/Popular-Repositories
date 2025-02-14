@@ -1,7 +1,15 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class,
+    ExperimentalSharedTransitionApi::class
+)
 
 package com.splunk.test.mobile.presentation.screen.repository.list
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +21,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -47,6 +56,8 @@ import kotlinx.coroutines.flow.flowOf
 fun RepositoryListContent(
     paddingValues: PaddingValues,
     scrollBehavior: TopAppBarScrollBehavior,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     repositoryItems: LazyPagingItems<RepositoryUiModel>,
     onClickRepository: (RepositoryUiModel) -> Unit,
     onClickRetry: () -> Unit,
@@ -98,17 +109,12 @@ fun RepositoryListContent(
                         }
                     }
                     else -> {
-                        items(
-                            count = repositoryItems.itemCount,
-                            key = { index -> repositoryItems[index]?.id ?: index },
-                        ) { index ->
-                            repositoryItems[index]?.let { uiModel ->
-                                RepositoryListItem(
-                                    uiModel = uiModel,
-                                    onClickRepository = onClickRepository,
-                                )
-                            }
-                        }
+                        repositoryItemsState(
+                            sharedTransitionScope = sharedTransitionScope,
+                            animatedVisibilityScope = animatedVisibilityScope,
+                            repositoryItems = repositoryItems,
+                            onClickRepository = onClickRepository,
+                        )
                     }
                 }
                 if (repositoryItems.loadState.append is LoadState.Loading) {
@@ -135,6 +141,27 @@ private fun ListHeader() {
         overflow = TextOverflow.Ellipsis,
         maxLines = 1,
     )
+}
+
+private fun LazyListScope.repositoryItemsState(
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    repositoryItems: LazyPagingItems<RepositoryUiModel>,
+    onClickRepository: (RepositoryUiModel) -> Unit,
+) {
+    items(
+        count = repositoryItems.itemCount,
+        key = { index -> repositoryItems[index]?.id ?: index },
+    ) { index ->
+        repositoryItems[index]?.let { uiModel ->
+            RepositoryListItem(
+                sharedTransitionScope = sharedTransitionScope,
+                animatedVisibilityScope = animatedVisibilityScope,
+                uiModel = uiModel,
+                onClickRepository = onClickRepository,
+            )
+        }
+    }
 }
 
 @Composable
@@ -245,12 +272,18 @@ private fun FooterErrorState(onRetry: () -> Unit) {
 @Preview
 @Composable
 private fun RepositoryListContentPreview() {
-    val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
-    RepositoryListContent(
-        paddingValues = PaddingValues(),
-        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
-        repositoryItems = flow.collectAsLazyPagingItems(),
-        onClickRepository = {},
-        onClickRetry = {},
-    )
+    SharedTransitionLayout {
+        AnimatedVisibility(visible = true) {
+            val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
+            RepositoryListContent(
+                paddingValues = PaddingValues(),
+                scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+                sharedTransitionScope = this@SharedTransitionLayout,
+                animatedVisibilityScope = this@AnimatedVisibility,
+                repositoryItems = flow.collectAsLazyPagingItems(),
+                onClickRepository = {},
+                onClickRetry = {},
+            )
+        }
+    }
 }

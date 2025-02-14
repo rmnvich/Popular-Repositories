@@ -1,7 +1,12 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 
 package com.splunk.test.mobile.presentation.screen.repository.details
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,11 +30,15 @@ import com.splunk.test.mobile.presentation.model.RepositoryUiModel
 
 @Composable
 fun RepositoryDetailsScreen(
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     viewModel: RepositoryDetailsViewModel,
     onClickBack: () -> Unit,
 ) {
     val uiState = viewModel.uiState.collectAsState()
     RepositoryDetailsScreen(
+        sharedTransitionScope = sharedTransitionScope,
+        animatedVisibilityScope = animatedVisibilityScope,
         uiModel = uiState.value.uiModel,
         onClickBack = onClickBack,
     )
@@ -37,21 +46,25 @@ fun RepositoryDetailsScreen(
 
 @Composable
 private fun RepositoryDetailsScreen(
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     uiModel: RepositoryUiModel?,
     onClickBack: () -> Unit,
 ) {
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.primary)
     ) {
+        val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
         RepositoryDetailsTopAppBar(
             scrollBehavior = scrollBehavior,
             onClickBack = onClickBack,
         )
         if (uiModel != null) {
             RepositoryDetailsContent(
+                sharedTransitionScope = sharedTransitionScope,
+                animatedVisibilityScope = animatedVisibilityScope,
                 scrollBehavior = scrollBehavior,
                 uiModel = uiModel,
             )
@@ -88,32 +101,38 @@ private fun ErrorState() {
 @Preview
 @Composable
 private fun RepositoryDetailsScreenPreview() {
-    RepositoryDetailsScreen(
-        uiModel = RepositoryUiModel(
-            id = 0,
-            name = "Splunk Test",
-            fullName = "rmnvich / SplunkTest",
-            description = "Home assignment for the Splunk company",
-            owner = RepositoryUiModel.OwnerUiModel(
-                login = "Vadzim Ramanovich",
-                type = "Organization",
-                avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
-            ),
-            isPrivate = true,
-            starCountFormatted = "520,780",
-            starCountShorten = "520.7k",
-            forkCountFormatted = "107,000",
-            forkCountShorten = "107.0k",
-            mainLanguage = RepositoryUiModel.LanguageUiModel(
-                name = "Kotlin",
-                color = 13666500,
-            ),
-            allLanguages = null,
-            url = null,
-            createdAt = "Dec 24, 2014",
-            issueCountFormatted = "208",
-            watcherCountFormatted = "30,601",
-        ),
-        onClickBack = {},
-    )
+    SharedTransitionLayout {
+        AnimatedVisibility(visible = true) {
+            RepositoryDetailsScreen(
+                sharedTransitionScope = this@SharedTransitionLayout,
+                animatedVisibilityScope = this@AnimatedVisibility,
+                uiModel = RepositoryUiModel(
+                    id = 0,
+                    name = "Splunk Test",
+                    fullName = "rmnvich / SplunkTest",
+                    description = "Home assignment for the Splunk company",
+                    owner = RepositoryUiModel.OwnerUiModel(
+                        login = "Vadzim Ramanovich",
+                        type = "Organization",
+                        avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
+                    ),
+                    isPrivate = true,
+                    starCountFormatted = "520,780",
+                    starCountShorten = "520.7k",
+                    forkCountFormatted = "107,000",
+                    forkCountShorten = "107.0k",
+                    mainLanguage = RepositoryUiModel.LanguageUiModel(
+                        name = "Kotlin",
+                        color = 13666500,
+                    ),
+                    allLanguages = null,
+                    url = null,
+                    createdAt = "Dec 24, 2014",
+                    issueCountFormatted = "208",
+                    watcherCountFormatted = "30,601",
+                ),
+                onClickBack = {},
+            )
+        }
+    }
 }

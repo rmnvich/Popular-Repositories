@@ -1,7 +1,13 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.splunk.test.mobile.presentation.screen.repository.list
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +20,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,24 +41,41 @@ import com.splunk.test.mobile.presentation.R
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
 import com.splunk.test.mobile.presentation.screen.repository.widget.LanguageItem
 
+internal const val SHARED_KEY_REPOSITORY_CARD_CONTAINER = "repository_list_item_container_"
+
 @Composable
 fun LazyItemScope.RepositoryListItem(
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     uiModel: RepositoryUiModel,
     onClickRepository: (RepositoryUiModel) -> Unit,
 ) {
-    val cardShape = RoundedCornerShape(32.dp)
+    with(sharedTransitionScope) {
+        val shape = RoundedCornerShape(36.dp)
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .clickable { onClickRepository(uiModel) }
+                .clip(shape)
+                .animateItem(fadeOutSpec = null)
+                .sharedElement(
+                    state = rememberSharedContentState(key = "$SHARED_KEY_REPOSITORY_CARD_CONTAINER${uiModel.id}"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                ),
+            shape = shape,
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
+            content = { RepositoryListItemContent(uiModel) }
+        )
+    }
+}
+
+@Composable
+private fun RepositoryListItemContent(uiModel: RepositoryUiModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
-            .background(
-                color = MaterialTheme.colorScheme.surfaceContainerLowest,
-                shape = cardShape,
-            )
-            .clip(cardShape)
-            .clickable { onClickRepository(uiModel) }
             .padding(all = 24.dp)
-            .animateItem(fadeOutSpec = null)
     ) {
         Row(
             modifier = Modifier
@@ -159,34 +184,40 @@ fun LazyItemScope.RepositoryListItem(
 private fun RepositoryListItemPreview() {
     LazyColumn {
         items(1) {
-            RepositoryListItem(
-                uiModel = RepositoryUiModel(
-                    id = 0,
-                    name = "Splunk Test",
-                    fullName = "rmnvich / SplunkTest",
-                    description = "Home assignment for the Splunk company",
-                    owner = RepositoryUiModel.OwnerUiModel(
-                        login = "Vadzim Ramanovich",
-                        type = "Organization",
-                        avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
-                    ),
-                    isPrivate = true,
-                    starCountFormatted = "520,780",
-                    starCountShorten = "520.7k",
-                    forkCountFormatted = "107,000",
-                    forkCountShorten = "107.0k",
-                    mainLanguage = RepositoryUiModel.LanguageUiModel(
-                        name = "Kotlin",
-                        color = 13666500,
-                    ),
-                    allLanguages = null,
-                    url = null,
-                    createdAt = "Dec 24, 2014",
-                    issueCountFormatted = "208",
-                    watcherCountFormatted = "30,601",
-                ),
-                onClickRepository = {}
-            )
+            SharedTransitionLayout {
+                AnimatedVisibility(visible = true) {
+                    RepositoryListItem(
+                        sharedTransitionScope = this@SharedTransitionLayout,
+                        animatedVisibilityScope = this@AnimatedVisibility,
+                        uiModel = RepositoryUiModel(
+                            id = 0,
+                            name = "Splunk Test",
+                            fullName = "rmnvich / SplunkTest",
+                            description = "Home assignment for the Splunk company",
+                            owner = RepositoryUiModel.OwnerUiModel(
+                                login = "Vadzim Ramanovich",
+                                type = "Organization",
+                                avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
+                            ),
+                            isPrivate = true,
+                            starCountFormatted = "520,780",
+                            starCountShorten = "520.7k",
+                            forkCountFormatted = "107,000",
+                            forkCountShorten = "107.0k",
+                            mainLanguage = RepositoryUiModel.LanguageUiModel(
+                                name = "Kotlin",
+                                color = 13666500,
+                            ),
+                            allLanguages = null,
+                            url = null,
+                            createdAt = "Dec 24, 2014",
+                            issueCountFormatted = "208",
+                            watcherCountFormatted = "30,601",
+                        ),
+                        onClickRepository = {},
+                    )
+                }
+            }
         }
     }
 }

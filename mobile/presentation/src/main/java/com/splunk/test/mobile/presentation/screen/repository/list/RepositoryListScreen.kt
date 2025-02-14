@@ -1,5 +1,12 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.splunk.test.mobile.presentation.screen.repository.list
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -18,6 +25,8 @@ import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun RepositoryListScreen(
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     repositoryListViewModel: RepositoryListViewModel,
     themeViewModel: ThemeViewModel,
     isDarkTheme: Boolean,
@@ -25,6 +34,8 @@ fun RepositoryListScreen(
 ) {
     val repositoryItems = repositoryListViewModel.repositoriesPagingData.collectAsLazyPagingItems()
     RepositoryListScreen(
+        sharedTransitionScope = sharedTransitionScope,
+        animatedVisibilityScope = animatedVisibilityScope,
         repositoryItems = repositoryItems,
         isDarkTheme = isDarkTheme,
         onClickRepository = onClickRepository,
@@ -36,6 +47,8 @@ fun RepositoryListScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun RepositoryListScreen(
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     repositoryItems: LazyPagingItems<RepositoryUiModel>,
     isDarkTheme: Boolean,
     onClickRepository: (RepositoryUiModel) -> Unit,
@@ -58,6 +71,8 @@ private fun RepositoryListScreen(
             RepositoryListContent(
                 paddingValues = paddingValues,
                 scrollBehavior = scrollBehavior,
+                sharedTransitionScope = sharedTransitionScope,
+                animatedVisibilityScope = animatedVisibilityScope,
                 repositoryItems = repositoryItems,
                 onClickRepository = onClickRepository,
                 onClickRetry = onClickRetry,
@@ -69,12 +84,18 @@ private fun RepositoryListScreen(
 @Preview
 @Composable
 private fun RepositoryListScreenPreview() {
-    val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
-    RepositoryListScreen(
-        repositoryItems = flow.collectAsLazyPagingItems(),
-        isDarkTheme = false,
-        onClickRepository = {},
-        onClickRetry = {},
-        onClickToggleTheme = {}
-    )
+    SharedTransitionLayout {
+        AnimatedVisibility(visible = true) {
+            val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
+            RepositoryListScreen(
+                sharedTransitionScope = this@SharedTransitionLayout,
+                animatedVisibilityScope = this@AnimatedVisibility,
+                repositoryItems = flow.collectAsLazyPagingItems(),
+                isDarkTheme = false,
+                onClickRepository = {},
+                onClickRetry = {},
+                onClickToggleTheme = {}
+            )
+        }
+    }
 }
