@@ -42,12 +42,13 @@ fun RepositoryListScreen(
     repositoryListViewModel: RepositoryListViewModel,
     themeViewModel: ThemeViewModel,
     isDarkTheme: Boolean,
+    onClickRepository: (RepositoryUiModel) -> Unit,
 ) {
     val repositoryItems = repositoryListViewModel.repositoriesPagingData.collectAsLazyPagingItems()
     RepositoryListScreen(
         repositoryItems = repositoryItems,
         isDarkTheme = isDarkTheme,
-        onClickRepository = repositoryListViewModel::onClickRepository,
+        onClickRepository = onClickRepository,
         onClickRetry = { repositoryItems.retry() },
         onClickToggleTheme = themeViewModel::onClickToggleTheme,
     )
