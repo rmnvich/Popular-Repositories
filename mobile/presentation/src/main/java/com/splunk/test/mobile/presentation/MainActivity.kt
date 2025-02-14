@@ -38,6 +38,6 @@ class MainActivity : ComponentActivity() {
     }
 
     private companion object {
-        const val SWITCH_THEME_DURATION = 500
+        const val SWITCH_THEME_DURATION = 700
     }
 }
