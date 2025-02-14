@@ -76,9 +76,7 @@ fun RepositoryListTopAppBar(
             scrolledContainerColor = MaterialTheme.colorScheme.primary,
         ),
         content = {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     modifier = Modifier
                         .weight(1f)
