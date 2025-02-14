@@ -32,12 +32,13 @@ fun MainScreen(
                         route = NavigationConstants.ROUTE_REPOSITORY_DETAILS,
                         args = bundleOf(NavigationConstants.ARG_REPOSITORY to repository)
                     )
-                }
+                },
             )
         }
         composable(NavigationConstants.ROUTE_REPOSITORY_DETAILS) {
             RepositoryDetailsScreen(
                 viewModel = hiltViewModel(),
+                onClickBack = { navController.popBackStack() },
             )
         }
     }

@@ -1,10 +1,7 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.splunk.test.mobile.presentation.screen.repository.list
 
-import androidx.compose.animation.core.DurationBasedAnimationSpec
-import androidx.compose.animation.core.Transition
-import androidx.compose.animation.core.animateDp
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,11 +16,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,7 +31,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.PagingData
@@ -41,10 +39,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.splunk.test.mobile.presentation.R
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
 import com.splunk.test.mobile.presentation.screen.repository.list.paging.PagingConstants
+import com.splunk.test.mobile.presentation.utils.widget.getSplunkTopAppBarCornerRadius
 import com.splunk.test.mobile.presentation.utils.widget.shimmerBrush
 import kotlinx.coroutines.flow.flowOf
-
-private const val LABEL_CONTENT_CORNER_RADIUS_ANIMATION = "animation_content_corner_radius"
 
 @Preview
 @Composable
@@ -52,8 +49,7 @@ private fun RepositoryListContentPreview() {
     val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
     RepositoryListContent(
         paddingValues = PaddingValues(),
-        topAppBarExpandedStateTransition = updateTransition(true, ""),
-        topAppBarTransitionSpec = tween(),
+        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
         repositoryItems = flow.collectAsLazyPagingItems(),
         onClickRepository = {},
         onClickRetry = {},
@@ -63,24 +59,17 @@ private fun RepositoryListContentPreview() {
 @Composable
 fun RepositoryListContent(
     paddingValues: PaddingValues,
-    topAppBarExpandedStateTransition: Transition<Boolean>,
-    topAppBarTransitionSpec: DurationBasedAnimationSpec<Dp>,
+    scrollBehavior: TopAppBarScrollBehavior,
     repositoryItems: LazyPagingItems<RepositoryUiModel>,
     onClickRepository: (RepositoryUiModel) -> Unit,
     onClickRetry: () -> Unit,
 ) {
-    val cornerRadius by topAppBarExpandedStateTransition.animateDp(
-        transitionSpec = { topAppBarTransitionSpec },
-        label = LABEL_CONTENT_CORNER_RADIUS_ANIMATION,
-    ) { isExpanded ->
-        if (isExpanded) 36.dp else 0.dp
-    }
-
     Box(
         modifier = Modifier
             .padding(top = paddingValues.calculateTopPadding())
             .background(color = MaterialTheme.colorScheme.primary)
     ) {
+        val cornerRadius = scrollBehavior.getSplunkTopAppBarCornerRadius()
         Column(
             modifier = Modifier
                 .fillMaxSize()
