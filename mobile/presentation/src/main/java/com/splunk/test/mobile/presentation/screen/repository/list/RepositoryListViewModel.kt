@@ -37,8 +37,4 @@ class RepositoryListViewModel @Inject constructor(
             }
         }
         .cachedIn(viewModelScope)
-
-    fun onClickRepository(uiModel: RepositoryUiModel) {
-        //TODO
-    }
 }

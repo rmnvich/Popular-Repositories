@@ -15,6 +15,8 @@ fun GitHubRepositoryResponse.toDomainModel(
     isPrivate = this.isPrivate,
     starCount = this.starCount,
     forkCount = this.forkCount,
+    watcherCount = this.watcherCount,
+    issueCount = this.issueCount,
     mainLanguage = this.language,
     allLanguages = languages?.keys,
     url = this.url,
@@ -24,5 +26,6 @@ fun GitHubRepositoryResponse.toDomainModel(
 private fun OwnerResponse.toDomainModel(): GitHubRepository.Owner = GitHubRepository.Owner(
     id = this.id,
     login = this.login,
+    type = this.type,
     avatarUrl = this.avatarUrl,
 )

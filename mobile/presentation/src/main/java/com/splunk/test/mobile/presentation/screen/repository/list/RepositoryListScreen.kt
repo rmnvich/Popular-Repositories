@@ -1,19 +1,14 @@
 package com.splunk.test.mobile.presentation.screen.repository.list
 
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -21,33 +16,18 @@ import com.splunk.test.mobile.presentation.model.RepositoryUiModel
 import com.splunk.test.mobile.presentation.theme.ThemeViewModel
 import kotlinx.coroutines.flow.flowOf
 
-private const val LABEL_TRANSITION_SCROLL_OFFSET = "transition_scroll_offset"
-private const val TRANSITION_SCROLL_OFFSET_DURATION = 500
-
-@Preview
-@Composable
-private fun RepositoryListScreenPreview() {
-    val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
-    RepositoryListScreen(
-        repositoryItems = flow.collectAsLazyPagingItems(),
-        isDarkTheme = false,
-        onClickRepository = {},
-        onClickRetry = {},
-        onClickToggleTheme = {}
-    )
-}
-
 @Composable
 fun RepositoryListScreen(
     repositoryListViewModel: RepositoryListViewModel,
     themeViewModel: ThemeViewModel,
     isDarkTheme: Boolean,
+    onClickRepository: (RepositoryUiModel) -> Unit,
 ) {
     val repositoryItems = repositoryListViewModel.repositoriesPagingData.collectAsLazyPagingItems()
     RepositoryListScreen(
         repositoryItems = repositoryItems,
         isDarkTheme = isDarkTheme,
-        onClickRepository = repositoryListViewModel::onClickRepository,
+        onClickRepository = onClickRepository,
         onClickRetry = { repositoryItems.retry() },
         onClickToggleTheme = themeViewModel::onClickToggleTheme,
     )
@@ -62,27 +42,14 @@ private fun RepositoryListScreen(
     onClickRetry: () -> Unit,
     onClickToggleTheme: () -> Unit,
 ) {
-    val topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    val topAppBarExpandedState by remember {
-        derivedStateOf { topAppBarScrollBehavior.state.collapsedFraction < 0.5f }
-    }
-    val topAppBarExpandedStateTransition = updateTransition(
-        targetState = topAppBarExpandedState,
-        label = LABEL_TRANSITION_SCROLL_OFFSET,
-    )
-    val topAppBarTransitionSpec = tween<Dp>(
-        durationMillis = TRANSITION_SCROLL_OFFSET_DURATION,
-    )
-
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection),
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             RepositoryListTopAppBar(
-                topAppBarScrollBehavior = topAppBarScrollBehavior,
-                topAppBarExpandedStateTransition = topAppBarExpandedStateTransition,
-                topAppBarTransitionSpec = topAppBarTransitionSpec,
+                scrollBehavior = scrollBehavior,
                 isDarkTheme = isDarkTheme,
                 onClickToggleTheme = onClickToggleTheme,
             )
@@ -90,12 +57,24 @@ private fun RepositoryListScreen(
         content = { paddingValues ->
             RepositoryListContent(
                 paddingValues = paddingValues,
-                topAppBarExpandedStateTransition = topAppBarExpandedStateTransition,
-                topAppBarTransitionSpec = topAppBarTransitionSpec,
+                scrollBehavior = scrollBehavior,
                 repositoryItems = repositoryItems,
                 onClickRepository = onClickRepository,
                 onClickRetry = onClickRetry,
             )
         }
+    )
+}
+
+@Preview
+@Composable
+private fun RepositoryListScreenPreview() {
+    val flow = remember { flowOf(PagingData.empty<RepositoryUiModel>()) }
+    RepositoryListScreen(
+        repositoryItems = flow.collectAsLazyPagingItems(),
+        isDarkTheme = false,
+        onClickRepository = {},
+        onClickRetry = {},
+        onClickToggleTheme = {}
     )
 }

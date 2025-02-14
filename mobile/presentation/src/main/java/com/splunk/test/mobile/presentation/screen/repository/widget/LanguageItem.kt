@@ -14,17 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
 
-@Preview
-@Composable
-private fun LanguageItemPreview() {
-    LanguageItem(
-        language = RepositoryUiModel.LanguageUiModel(
-            name = "Kotlin",
-            color = 0xFFD088C4.toInt(),
-        )
-    )
-}
-
 @Composable
 fun LanguageItem(
     modifier: Modifier = Modifier,
@@ -46,4 +35,15 @@ fun LanguageItem(
             maxLines = 1,
         )
     }
+}
+
+@Preview
+@Composable
+private fun LanguageItemPreview() {
+    LanguageItem(
+        language = RepositoryUiModel.LanguageUiModel(
+            name = "Kotlin",
+            color = 0xFFD088C4.toInt(),
+        )
+    )
 }

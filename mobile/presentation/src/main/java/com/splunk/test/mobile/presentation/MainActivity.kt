@@ -5,8 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.splunk.test.mobile.presentation.screen.repository.list.RepositoryListScreen
+import com.splunk.test.mobile.presentation.screen.MainScreen
 import com.splunk.test.mobile.presentation.theme.ThemeViewModel
 import com.splunk.test.mobile.theme.SplunkTestTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,12 +20,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val themeViewModel = hiltViewModel<ThemeViewModel>()
-            val isDarkTheme = themeViewModel.isDarkTheme.collectAsState()
-            SplunkTestTheme(darkTheme = isDarkTheme.value) {
-                RepositoryListScreen(
-                    repositoryListViewModel = hiltViewModel(),
+            val isDarkTheme by themeViewModel.isDarkTheme.collectAsState()
+            SplunkTestTheme(isDarkTheme) {
+                MainScreen(
                     themeViewModel = themeViewModel,
-                    isDarkTheme = isDarkTheme.value,
+                    isDarkTheme = isDarkTheme,
                 )
             }
         }
