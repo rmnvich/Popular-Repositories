@@ -24,17 +24,11 @@ val enterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> Ent
 }
 
 val exitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
-    fadeOut(
-        animationSpec = tween(durationMillis = ANIMATION_DURATION),
-    )
+    ExitTransition.None
 }
 
 val popEnterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
-    fadeIn(
-        animationSpec = spring(
-            stiffness = Spring.StiffnessHigh
-        ),
-    )
+    EnterTransition.None
 }
 
 val popExitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
