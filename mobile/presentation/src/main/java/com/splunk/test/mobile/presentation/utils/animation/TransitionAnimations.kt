@@ -3,7 +3,8 @@ package com.splunk.test.mobile.presentation.utils.animation
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -31,24 +32,21 @@ val exitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> Exit
 
 val popEnterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
     fadeIn(
-        animationSpec = tween(
-            durationMillis = ANIMATION_DURATION,
-            easing = FastOutLinearInEasing,
+        animationSpec = spring(
+            stiffness = Spring.StiffnessHigh
         ),
     )
 }
 
 val popExitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
     slideOutVertically(
-        animationSpec = tween(
-            durationMillis = ANIMATION_DURATION,
-            easing = FastOutLinearInEasing,
+        animationSpec = spring(
+            stiffness = Spring.StiffnessMediumLow
         ),
         targetOffsetY = { it / 8 }
     ) + fadeOut(
-        animationSpec = tween(
-            durationMillis = ANIMATION_DURATION,
-            easing = FastOutLinearInEasing,
+        animationSpec = spring(
+            stiffness = Spring.StiffnessMediumLow
         ),
     )
 }
