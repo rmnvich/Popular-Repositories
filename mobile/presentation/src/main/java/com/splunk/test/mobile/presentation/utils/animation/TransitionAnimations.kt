@@ -15,7 +15,7 @@ private const val ANIMATION_DURATION = 350
 
 val enterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
     slideInVertically(
-        initialOffsetY = { it / 8 },
+        initialOffsetY = { it / 10 },
         animationSpec = tween(durationMillis = ANIMATION_DURATION)
     ) + fadeIn(
         animationSpec = tween(durationMillis = ANIMATION_DURATION),
