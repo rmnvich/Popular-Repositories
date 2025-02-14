@@ -1,4 +1,4 @@
-package com.splunk.test.mobile.presentation.utils.reveal
+package com.splunk.test.mobile.presentation.utils.widget
 
 import android.graphics.Path
 import android.view.MotionEvent
@@ -6,8 +6,8 @@ import androidx.annotation.FloatRange
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.LayoutScopeMarker
 import androidx.compose.runtime.Composable
@@ -47,7 +47,10 @@ fun <T> CircularReveal(
     val targetChanged = (targetState != transitionState.targetState)
     var offset: Offset? by remember { mutableStateOf(null) }
     transitionState.targetState = targetState
-    val transition = updateTransition(transitionState, label = "transition")
+    val transition = rememberTransition(
+        transitionState = transitionState,
+        label = "transition",
+    )
     if (targetChanged || items.isEmpty()) {
         // Only manipulate the list when the state is changed, or in the first run.
         val keys = items.map { it.key }.run {
@@ -61,13 +64,19 @@ fun <T> CircularReveal(
         keys.mapIndexedTo(items) { index, key ->
             CircularRevealAnimationItem(key) {
                 val progress by transition.animateFloat(
-                    transitionSpec = { animationSpec }, label = ""
+                    transitionSpec = { animationSpec },
+                    label = ""
                 ) {
                     if (index == keys.size - 1) {
                         if (it == key) 1f else 0f
                     } else 1f
                 }
-                Box(Modifier.circularReveal(progress = progress, offset = offset)) {
+                Box(
+                    Modifier.circularReveal(
+                        progress = progress,
+                        offset = offset,
+                    ),
+                ) {
                     with(CircularRevealScope) {
                         content(key)
                     }
@@ -128,7 +137,10 @@ private class CircularRevealShape(
         val bottomLeft = hypot(offset.x, size.height - offset.y)
         val bottomRight = hypot(size.width - offset.x, size.height - offset.y)
 
-        return topLeft.coerceAtLeast(topRight).coerceAtLeast(bottomLeft).coerceAtLeast(bottomRight)
+        return topLeft
+            .coerceAtLeast(topRight)
+            .coerceAtLeast(bottomLeft)
+            .coerceAtLeast(bottomRight)
     }
 }
 

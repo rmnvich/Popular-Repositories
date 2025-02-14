@@ -9,7 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.splunk.test.mobile.presentation.screen.repository.list.RepositoryListScreen
 import com.splunk.test.mobile.presentation.theme.ThemeViewModel
-import com.splunk.test.mobile.presentation.utils.reveal.CircularReveal
+import com.splunk.test.mobile.presentation.utils.widget.CircularReveal
 import com.splunk.test.mobile.theme.SplunkTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 
