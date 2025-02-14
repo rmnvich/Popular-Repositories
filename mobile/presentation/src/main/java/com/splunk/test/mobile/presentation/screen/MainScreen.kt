@@ -24,7 +24,6 @@ fun MainScreen(
     themeViewModel: ThemeViewModel,
     isDarkTheme: Boolean,
 ) {
-
     val navController = rememberNavController()
     NavHost(
         modifier = Modifier.background(color = MaterialTheme.colorScheme.primary),
