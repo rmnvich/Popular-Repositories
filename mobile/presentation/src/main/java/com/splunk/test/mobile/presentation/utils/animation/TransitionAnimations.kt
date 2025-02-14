@@ -9,7 +9,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.navigation.NavBackStackEntry
 
 private const val ANIMATION_DURATION = 350
@@ -39,12 +38,7 @@ val popEnterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> 
 }
 
 val popExitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
-    slideOutVertically(
-        animationSpec = spring(
-            stiffness = Spring.StiffnessMediumLow
-        ),
-        targetOffsetY = { it / 8 }
-    ) + fadeOut(
+    fadeOut(
         animationSpec = spring(
             stiffness = Spring.StiffnessMediumLow
         ),
