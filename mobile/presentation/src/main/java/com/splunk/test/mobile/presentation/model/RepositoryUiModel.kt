@@ -11,10 +11,12 @@ data class RepositoryUiModel(
     val description: String?,
     val owner: OwnerUiModel,
     val isPrivate: Boolean,
-    val starCount: Int,
     val starCountFormatted: String,
-    val forkCount: Int,
+    val starCountShorten: String,
     val forkCountFormatted: String,
+    val forkCountShorten: String,
+    val watcherCountFormatted: String,
+    val issueCountFormatted: String,
     val mainLanguage: LanguageUiModel?,
     val allLanguages: List<LanguageUiModel>?,
     val url: String?,
@@ -24,6 +26,7 @@ data class RepositoryUiModel(
     @Parcelize
     data class OwnerUiModel(
         val login: String,
+        val type: String?,
         val avatarUrl: String?,
     ) : Parcelable
 

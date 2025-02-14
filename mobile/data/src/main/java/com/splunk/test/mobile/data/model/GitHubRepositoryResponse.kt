@@ -15,6 +15,8 @@ data class GitHubRepositoryResponse(
     @Json(name = "languages_url") val languagesUrl: String?,
     @Json(name = "stargazers_count") val starCount: Int,
     @Json(name = "forks_count") val forkCount: Int,
+    @Json(name = "watchers_count") val watcherCount: Int,
+    @Json(name = "open_issues_count") val issueCount: Int,
     @Json(name = "html_url") val url: String,
     @Json(name = "created_at") val createdAt: String,
 ) {
@@ -23,6 +25,7 @@ data class GitHubRepositoryResponse(
     data class OwnerResponse(
         @Json(name = "id") val id: Long,
         @Json(name = "login") val login: String,
+        @Json(name = "type") val type: String?,
         @Json(name = "avatar_url") val avatarUrl: String?,
     )
 }

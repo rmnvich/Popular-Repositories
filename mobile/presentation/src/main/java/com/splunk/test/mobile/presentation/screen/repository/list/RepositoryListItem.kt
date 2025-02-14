@@ -46,13 +46,14 @@ private fun RepositoryListItemPreview() {
                     description = "Home assignment for the Splunk company",
                     owner = RepositoryUiModel.OwnerUiModel(
                         login = "Vadzim Ramanovich",
+                        type = "Organization",
                         avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
                     ),
                     isPrivate = true,
-                    starCount = 520780,
-                    starCountFormatted = "520.7k",
-                    forkCount = 107000,
-                    forkCountFormatted = "107.0k",
+                    starCountFormatted = "520,780",
+                    starCountShorten = "520.7k",
+                    forkCountFormatted = "107,000",
+                    forkCountShorten = "107.0k",
                     mainLanguage = RepositoryUiModel.LanguageUiModel(
                         name = "Kotlin",
                         color = 13666500,
@@ -60,6 +61,8 @@ private fun RepositoryListItemPreview() {
                     allLanguages = null,
                     url = null,
                     createdAt = "Dec 24, 2014",
+                    issueCountFormatted = "208",
+                    watcherCountFormatted = "30,601",
                 ),
                 onClickRepository = {}
             )
@@ -162,11 +165,11 @@ fun LazyItemScope.RepositoryListItem(
                 Icon(
                     painter = painterResource(R.drawable.ic_fork_24_outline),
                     tint = MaterialTheme.colorScheme.surfaceTint,
-                    contentDescription = stringResource(R.string.forks),
+                    contentDescription = stringResource(R.string.label_forks),
                 )
                 Text(
                     modifier = Modifier.padding(start = 2.dp),
-                    text = uiModel.forkCountFormatted,
+                    text = uiModel.forkCountShorten,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodyMedium,
                 )
@@ -175,11 +178,11 @@ fun LazyItemScope.RepositoryListItem(
                     modifier = Modifier.padding(start = 16.dp),
                     painter = painterResource(R.drawable.ic_star_24_outline),
                     tint = MaterialTheme.colorScheme.surfaceTint,
-                    contentDescription = stringResource(R.string.stars),
+                    contentDescription = stringResource(R.string.label_stars),
                 )
                 Text(
                     modifier = Modifier.padding(start = 2.dp),
-                    text = uiModel.starCountFormatted,
+                    text = uiModel.starCountShorten,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodyMedium,
                 )
