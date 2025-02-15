@@ -64,7 +64,8 @@ import com.splunk.test.mobile.presentation.screen.repository.widget.LanguageItem
 import com.splunk.test.mobile.presentation.utils.widget.getSplunkTopAppBarCornerRadius
 import kotlinx.coroutines.delay
 
-private const val DELAY_TRANSITION_ANIMATION = 200L
+internal const val TRANSITION_ANIMATION_DELAY = 200L
+internal const val TRANSITION_ANIMATION_DURATION = 300
 
 @Composable
 @ExperimentalLayoutApi
@@ -78,14 +79,15 @@ fun RepositoryDetailsContent(
 ) {
     var isTransitionFinished by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
-        delay(DELAY_TRANSITION_ANIMATION)
+        delay(TRANSITION_ANIMATION_DELAY)
         isTransitionFinished = true
     }
-
     with(sharedTransitionScope) {
         val cornerRadius = scrollBehavior.getSplunkTopAppBarCornerRadius()
-        val enterTransition = slideInVertically(animationSpec = tween(), initialOffsetY = { it / 12 }) +
-                fadeIn(animationSpec = tween())
+        val enterTransition = slideInVertically(
+            animationSpec = tween(durationMillis = TRANSITION_ANIMATION_DURATION),
+            initialOffsetY = { it / 12 },
+        ) + fadeIn(animationSpec = tween(durationMillis = TRANSITION_ANIMATION_DURATION))
         Card(
             modifier = Modifier
                 .fillMaxWidth()

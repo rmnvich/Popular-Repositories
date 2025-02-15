@@ -40,10 +40,7 @@ fun RepositoryDetailsTopAppBar(
             )
         },
         navigationIcon = {
-            ThrottledIconButton(
-                throttleInterval = 1000,
-                onClick = onClickBack,
-            ) {
+            ThrottledIconButton(onClick = onClickBack) {
                 Icon(
                     painter = painterResource(R.drawable.ic_arrow_back_24_outline),
                     tint = MaterialTheme.colorScheme.onPrimary,

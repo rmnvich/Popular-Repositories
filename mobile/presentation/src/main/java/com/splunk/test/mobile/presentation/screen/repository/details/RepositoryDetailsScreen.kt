@@ -1,5 +1,7 @@
 package com.splunk.test.mobile.presentation.screen.repository.details
 
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -17,7 +19,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -26,6 +33,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.splunk.test.mobile.presentation.R
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
+import kotlinx.coroutines.delay
+
+private const val ON_BACK_PRESS_DELAY = 200L
 
 @Composable
 @ExperimentalMaterial3Api
@@ -56,6 +66,20 @@ private fun RepositoryDetailsScreen(
     uiModel: RepositoryUiModel?,
     onClickBack: () -> Unit,
 ) {
+    val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+    var isBackEnabled by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        // Delay to make animation happy
+        delay(
+            timeMillis = TRANSITION_ANIMATION_DELAY +
+                    TRANSITION_ANIMATION_DURATION +
+                    ON_BACK_PRESS_DELAY
+        )
+        isBackEnabled = true
+    }
+    BackHandler(enabled = true) {
+        if (isBackEnabled) onClickBack()
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -64,7 +88,7 @@ private fun RepositoryDetailsScreen(
         val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
         RepositoryDetailsTopAppBar(
             scrollBehavior = scrollBehavior,
-            onClickBack = onClickBack,
+            onClickBack = { onBackPressedDispatcher?.onBackPressed() },
         )
         if (uiModel != null) {
             RepositoryDetailsContent(
