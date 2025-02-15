@@ -56,7 +56,7 @@ fun LazyItemScope.RepositoryListItem(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .clip(shape)
-                .clickable { onClickRepository(uiModel) }
+                .clickable(onClick = { onClickRepository(uiModel) })
                 .animateItem(fadeOutSpec = null)
                 .sharedElement(
                     state = rememberSharedContentState(key = "$SHARED_KEY_REPOSITORY_CARD_CONTAINER${uiModel.id}"),

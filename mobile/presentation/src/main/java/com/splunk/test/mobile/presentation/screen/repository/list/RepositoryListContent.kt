@@ -66,16 +66,18 @@ fun RepositoryListContent(
             .background(color = MaterialTheme.colorScheme.primary)
     ) {
         val cornerRadius = scrollBehavior.getSplunkTopAppBarCornerRadius()
+        val shape = RoundedCornerShape(
+            topStart = cornerRadius,
+            topEnd = cornerRadius,
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .clip(
-                    shape = RoundedCornerShape(
-                        topStart = cornerRadius,
-                        topEnd = cornerRadius
-                    ),
+                .background(
+                    color = MaterialTheme.colorScheme.background,
+                    shape = shape,
                 )
-                .background(color = MaterialTheme.colorScheme.background)
+                .clip(shape = shape)
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
