@@ -27,9 +27,11 @@ import androidx.compose.ui.unit.dp
 import com.splunk.test.mobile.presentation.R
 import com.splunk.test.mobile.presentation.utils.widget.FlexibleTopBarColors
 import com.splunk.test.mobile.presentation.utils.widget.SplunkTopAppBar
+import com.splunk.test.mobile.presentation.utils.widget.ThrottledIconButton
 import com.splunk.test.mobile.presentation.utils.widget.getSplunkTopAppBarVerticalPadding
 
 private const val LABEL_ICON_THEME_ROTATION_ANIMATION = "animation_icon_theme_rotation"
+private const val SWITCH_THEME_THROTTLE_MILLIS = 500L
 
 @Composable
 @ExperimentalMaterial3Api
@@ -70,10 +72,11 @@ fun RepositoryListTopAppBar(
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onPrimary,
                 )
-                IconButton(
+                ThrottledIconButton(
                     modifier = Modifier
                         .padding(end = 8.dp)
                         .graphicsLayer(rotationZ = rotationAngle),
+                    throttleInterval = SWITCH_THEME_THROTTLE_MILLIS,
                     onClick = onClickToggleTheme,
                 ) {
                     if (isDarkTheme) {
