@@ -20,8 +20,8 @@ private const val LABEL_PADDING_VERTICAL_ANIMATION = "top_app_bar_animation_padd
 
 private const val TOP_APP_BAR_TRANSITION_DURATION = 500
 
-@ExperimentalMaterial3Api
 @Composable
+@ExperimentalMaterial3Api
 fun TopAppBarScrollBehavior.getExpandedStateTransition(
     fractionThreshold: Float = 0.5f,
 ): Transition<Boolean> {
@@ -34,8 +34,8 @@ fun TopAppBarScrollBehavior.getExpandedStateTransition(
     )
 }
 
-@ExperimentalMaterial3Api
 @Composable
+@ExperimentalMaterial3Api
 fun TopAppBarScrollBehavior.getSplunkTopAppBarCornerRadius(
     fractionThreshold: Float = 0.5f,
     transitionSpec: FiniteAnimationSpec<Dp> = tween(TOP_APP_BAR_TRANSITION_DURATION),
@@ -50,8 +50,8 @@ fun TopAppBarScrollBehavior.getSplunkTopAppBarCornerRadius(
     return cornerRadius
 }
 
-@ExperimentalMaterial3Api
 @Composable
+@ExperimentalMaterial3Api
 fun TopAppBarScrollBehavior.getSplunkTopAppBarVerticalPadding(
     fractionThreshold: Float = 0.5f,
     transitionSpec: FiniteAnimationSpec<Dp> = tween(TOP_APP_BAR_TRANSITION_DURATION),

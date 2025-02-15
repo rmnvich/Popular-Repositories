@@ -51,8 +51,8 @@ import kotlin.math.roundToInt
  * Also I reported this bug here:
  * https://issuetracker.google.com/issues/396446129
  */
-@ExperimentalMaterial3Api
 @Composable
+@ExperimentalMaterial3Api
 fun SplunkTopAppBar(
     modifier: Modifier = Modifier,
     colors: FlexibleTopBarColors = FlexibleTopBarDefaults.topAppBarColors(),

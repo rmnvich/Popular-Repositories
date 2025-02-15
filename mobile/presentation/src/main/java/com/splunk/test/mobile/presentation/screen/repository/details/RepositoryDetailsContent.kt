@@ -1,11 +1,17 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
-
 package com.splunk.test.mobile.presentation.screen.repository.details
 
 import android.content.Intent
 import android.net.Uri
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +30,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +39,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,27 +59,65 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.splunk.test.mobile.presentation.R
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
+import com.splunk.test.mobile.presentation.screen.repository.list.SHARED_KEY_REPOSITORY_CARD_CONTAINER
 import com.splunk.test.mobile.presentation.screen.repository.widget.LanguageItem
 import com.splunk.test.mobile.presentation.utils.widget.getSplunkTopAppBarCornerRadius
+import kotlinx.coroutines.delay
+
+internal const val TRANSITION_ANIMATION_DELAY = 200L
+internal const val TRANSITION_ANIMATION_DURATION = 300
 
 @Composable
+@ExperimentalLayoutApi
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
 fun RepositoryDetailsContent(
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     scrollBehavior: TopAppBarScrollBehavior,
     uiModel: RepositoryUiModel,
 ) {
-    val cornerRadius = scrollBehavior.getSplunkTopAppBarCornerRadius()
+    var isTransitionFinished by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        delay(TRANSITION_ANIMATION_DELAY)
+        isTransitionFinished = true
+    }
+    with(sharedTransitionScope) {
+        val cornerRadius = scrollBehavior.getSplunkTopAppBarCornerRadius()
+        val enterTransition = slideInVertically(
+            animationSpec = tween(durationMillis = TRANSITION_ANIMATION_DURATION),
+            initialOffsetY = { it / 12 },
+        ) + fadeIn(animationSpec = tween(durationMillis = TRANSITION_ANIMATION_DURATION))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxSize()
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .verticalScroll(rememberScrollState())
+                .sharedElement(
+                    state = rememberSharedContentState(key = "$SHARED_KEY_REPOSITORY_CARD_CONTAINER${uiModel.id}"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                ),
+            shape = RoundedCornerShape(cornerRadius),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+            ),
+        ) {
+            AnimatedVisibility(
+                visible = isTransitionFinished,
+                enter = enterTransition
+            ) {
+                RepositoryDetailsContent(uiModel = uiModel)
+            }
+        }
+    }
+}
+
+@Composable
+@ExperimentalLayoutApi
+private fun RepositoryDetailsContent(uiModel: RepositoryUiModel) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .verticalScroll(rememberScrollState())
-            .clip(
-                shape = RoundedCornerShape(
-                    topStart = cornerRadius,
-                    topEnd = cornerRadius
-                ),
-            )
-            .background(color = MaterialTheme.colorScheme.surfaceContainerLowest)
             .padding(
                 start = 24.dp,
                 end = 24.dp,
@@ -86,7 +137,7 @@ fun RepositoryDetailsContent(
                     context.startActivity(intent)
                 },
             ) {
-                Text("Open in browser")
+                Text(stringResource(R.string.open_in_browser))
             }
         }
         Text(
@@ -227,50 +278,59 @@ private fun RepositoryMetaData(
 
 @Preview
 @Composable
+@ExperimentalLayoutApi
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
 private fun RepositoryDetailsContentPreview() {
-    RepositoryDetailsContent(
-        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
-        uiModel = RepositoryUiModel(
-            id = 0,
-            name = "Splunk Test",
-            fullName = "rmnvich/SplunkTest",
-            description = "Home assignment for the Splunk company",
-            owner = RepositoryUiModel.OwnerUiModel(
-                login = "Vadzim Ramanovich",
-                type = "Organization",
-                avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
-            ),
-            isPrivate = false,
-            starCountFormatted = "520,780",
-            starCountShorten = "520.7k",
-            forkCountFormatted = "107,000",
-            forkCountShorten = "107.0k",
-            mainLanguage = RepositoryUiModel.LanguageUiModel(
-                name = "Kotlin",
-                color = 13666500,
-            ),
-            allLanguages = listOf(
-                RepositoryUiModel.LanguageUiModel(
-                    name = "Kotlin",
-                    color = Color.Red.toArgb(),
+    SharedTransitionLayout {
+        AnimatedVisibility(visible = true) {
+            RepositoryDetailsContent(
+                sharedTransitionScope = this@SharedTransitionLayout,
+                animatedVisibilityScope = this@AnimatedVisibility,
+                scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+                uiModel = RepositoryUiModel(
+                    id = 0,
+                    name = "Splunk Test",
+                    fullName = "rmnvich/SplunkTest",
+                    description = "Home assignment for the Splunk company",
+                    owner = RepositoryUiModel.OwnerUiModel(
+                        login = "Vadzim Ramanovich",
+                        type = "Organization",
+                        avatarUrl = "https://avatars.githubusercontent.com/u/33923854?v=4",
+                    ),
+                    isPrivate = false,
+                    starCountFormatted = "520,780",
+                    starCountShorten = "520.7k",
+                    forkCountFormatted = "107,000",
+                    forkCountShorten = "107.0k",
+                    mainLanguage = RepositoryUiModel.LanguageUiModel(
+                        name = "Kotlin",
+                        color = 13666500,
+                    ),
+                    allLanguages = listOf(
+                        RepositoryUiModel.LanguageUiModel(
+                            name = "Kotlin",
+                            color = Color.Red.toArgb(),
+                        ),
+                        RepositoryUiModel.LanguageUiModel(
+                            name = "Java",
+                            color = Color.Blue.toArgb(),
+                        ),
+                        RepositoryUiModel.LanguageUiModel(
+                            name = "C++",
+                            color = Color.Green.toArgb(),
+                        ),
+                        RepositoryUiModel.LanguageUiModel(
+                            name = "Python",
+                            color = Color.Magenta.toArgb(),
+                        )
+                    ),
+                    url = "https://github.com/rmnvich/SplunkTest",
+                    createdAt = "Dec 24, 2014",
+                    issueCountFormatted = "208",
+                    watcherCountFormatted = "30,601",
                 ),
-                RepositoryUiModel.LanguageUiModel(
-                    name = "Java",
-                    color = Color.Blue.toArgb(),
-                ),
-                RepositoryUiModel.LanguageUiModel(
-                    name = "C++",
-                    color = Color.Green.toArgb(),
-                ),
-                RepositoryUiModel.LanguageUiModel(
-                    name = "Python",
-                    color = Color.Magenta.toArgb(),
-                )
-            ),
-            url = "https://github.com/rmnvich/SplunkTest",
-            createdAt = "Dec 24, 2014",
-            issueCountFormatted = "208",
-            watcherCountFormatted = "30,601",
-        ),
-    )
+            )
+        }
+    }
 }

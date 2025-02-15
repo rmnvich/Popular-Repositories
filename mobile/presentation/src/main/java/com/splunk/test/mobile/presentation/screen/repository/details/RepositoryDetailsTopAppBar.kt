@@ -1,11 +1,8 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.splunk.test.mobile.presentation.screen.repository.details
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -19,9 +16,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.splunk.test.mobile.presentation.R
+import com.splunk.test.mobile.presentation.utils.widget.ThrottledIconButton
 import com.splunk.test.mobile.presentation.utils.widget.getSplunkTopAppBarVerticalPadding
 
 @Composable
+@ExperimentalMaterial3Api
 fun RepositoryDetailsTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
     onClickBack: () -> Unit,
@@ -41,7 +40,7 @@ fun RepositoryDetailsTopAppBar(
             )
         },
         navigationIcon = {
-            IconButton(onClick = onClickBack) {
+            ThrottledIconButton(onClick = onClickBack) {
                 Icon(
                     painter = painterResource(R.drawable.ic_arrow_back_24_outline),
                     tint = MaterialTheme.colorScheme.onPrimary,
@@ -58,6 +57,7 @@ fun RepositoryDetailsTopAppBar(
 
 @Preview
 @Composable
+@ExperimentalMaterial3Api
 private fun RepositoryDetailsTopAppBarPreview() {
     RepositoryDetailsTopAppBar(
         scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
