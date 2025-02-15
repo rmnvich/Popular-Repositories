@@ -53,6 +53,7 @@ import kotlinx.coroutines.flow.flowOf
 fun RepositoryListContent(
     paddingValues: PaddingValues,
     scrollBehavior: TopAppBarScrollBehavior,
+    isDarkTheme: Boolean,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     repositoryItems: LazyPagingItems<RepositoryUiModel>,
@@ -109,6 +110,7 @@ fun RepositoryListContent(
                         repositoryItemsState(
                             sharedTransitionScope = sharedTransitionScope,
                             animatedVisibilityScope = animatedVisibilityScope,
+                            isDarkTheme = isDarkTheme,
                             repositoryItems = repositoryItems,
                             onClickRepository = onClickRepository,
                         )
@@ -143,12 +145,16 @@ private fun ListHeader() {
 private fun LazyListScope.repositoryItemsState(
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
+    isDarkTheme: Boolean,
     repositoryItems: LazyPagingItems<RepositoryUiModel>,
     onClickRepository: (RepositoryUiModel) -> Unit,
 ) {
     items(
         count = repositoryItems.itemCount,
-        key = { index -> repositoryItems[index]?.id ?: index },
+        key = { index ->
+            val id = repositoryItems[index]?.id ?: index
+            "$id-$isDarkTheme"
+        },
     ) { index ->
         repositoryItems[index]?.let { uiModel ->
             RepositoryListItem(
@@ -275,6 +281,7 @@ private fun RepositoryListContentPreview() {
             RepositoryListContent(
                 paddingValues = PaddingValues(),
                 scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+                isDarkTheme = false,
                 sharedTransitionScope = this@SharedTransitionLayout,
                 animatedVisibilityScope = this@AnimatedVisibility,
                 repositoryItems = flow.collectAsLazyPagingItems(),

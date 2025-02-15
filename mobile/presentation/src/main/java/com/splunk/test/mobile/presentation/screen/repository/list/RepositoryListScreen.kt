@@ -71,6 +71,7 @@ private fun RepositoryListScreen(
             RepositoryListContent(
                 paddingValues = paddingValues,
                 scrollBehavior = scrollBehavior,
+                isDarkTheme = isDarkTheme,
                 sharedTransitionScope = sharedTransitionScope,
                 animatedVisibilityScope = animatedVisibilityScope,
                 repositoryItems = repositoryItems,
