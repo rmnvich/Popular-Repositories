@@ -1,10 +1,10 @@
-@file:OptIn(ExperimentalSharedTransitionApi::class)
-
 package com.splunk.test.mobile.presentation.screen
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,6 +20,9 @@ import com.splunk.test.mobile.presentation.utils.navigation.NavigationConstants
 import com.splunk.test.mobile.presentation.utils.navigation.navigate
 
 @Composable
+@ExperimentalLayoutApi
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
 fun MainScreen(
     themeViewModel: ThemeViewModel,
     isDarkTheme: Boolean,

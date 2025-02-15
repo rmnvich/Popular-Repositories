@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.splunk.test.mobile.presentation.screen.repository.list
 
 import androidx.compose.animation.core.animateFloatAsState
@@ -34,6 +32,7 @@ import com.splunk.test.mobile.presentation.utils.widget.getSplunkTopAppBarVertic
 private const val LABEL_ICON_THEME_ROTATION_ANIMATION = "animation_icon_theme_rotation"
 
 @Composable
+@ExperimentalMaterial3Api
 fun RepositoryListTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
     isDarkTheme: Boolean,
@@ -98,6 +97,7 @@ fun RepositoryListTopAppBar(
 
 @Preview
 @Composable
+@ExperimentalMaterial3Api
 private fun RepositoryListTopAppBarPreview() {
     RepositoryListTopAppBar(
         scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),

@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
-
 package com.splunk.test.mobile.presentation.screen.repository.details
 
 import androidx.compose.animation.AnimatedVisibility
@@ -9,6 +7,7 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -29,6 +28,9 @@ import com.splunk.test.mobile.presentation.R
 import com.splunk.test.mobile.presentation.model.RepositoryUiModel
 
 @Composable
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
+@ExperimentalLayoutApi
 fun RepositoryDetailsScreen(
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -45,6 +47,9 @@ fun RepositoryDetailsScreen(
 }
 
 @Composable
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
+@ExperimentalLayoutApi
 private fun RepositoryDetailsScreen(
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -100,6 +105,9 @@ private fun ErrorState() {
 
 @Preview
 @Composable
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
+@ExperimentalLayoutApi
 private fun RepositoryDetailsScreenPreview() {
     SharedTransitionLayout {
         AnimatedVisibility(visible = true) {

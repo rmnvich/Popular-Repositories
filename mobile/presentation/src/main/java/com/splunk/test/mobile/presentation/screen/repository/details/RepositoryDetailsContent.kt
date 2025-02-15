@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalSharedTransitionApi::class)
-
 package com.splunk.test.mobile.presentation.screen.repository.details
 
 import android.content.Intent
@@ -69,6 +67,9 @@ import kotlinx.coroutines.delay
 private const val DELAY_TRANSITION_ANIMATION = 150L
 
 @Composable
+@ExperimentalLayoutApi
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
 fun RepositoryDetailsContent(
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -111,6 +112,7 @@ fun RepositoryDetailsContent(
 }
 
 @Composable
+@ExperimentalLayoutApi
 private fun RepositoryDetailsContent(uiModel: RepositoryUiModel) {
     Column(
         modifier = Modifier
@@ -274,6 +276,9 @@ private fun RepositoryMetaData(
 
 @Preview
 @Composable
+@ExperimentalLayoutApi
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
 private fun RepositoryDetailsContentPreview() {
     SharedTransitionLayout {
         AnimatedVisibility(visible = true) {

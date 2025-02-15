@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalSharedTransitionApi::class)
-
 package com.splunk.test.mobile.presentation.screen.repository.list
 
 import androidx.compose.animation.AnimatedVisibility
@@ -44,6 +42,7 @@ import com.splunk.test.mobile.presentation.screen.repository.widget.LanguageItem
 internal const val SHARED_KEY_REPOSITORY_CARD_CONTAINER = "repository_list_item_container_"
 
 @Composable
+@ExperimentalSharedTransitionApi
 fun LazyItemScope.RepositoryListItem(
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -181,6 +180,7 @@ private fun RepositoryListItemContent(uiModel: RepositoryUiModel) {
 
 @Preview
 @Composable
+@ExperimentalSharedTransitionApi
 private fun RepositoryListItemPreview() {
     LazyColumn {
         items(1) {

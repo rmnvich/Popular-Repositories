@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.splunk.test.mobile.presentation.screen.repository.details
 
 import androidx.compose.foundation.layout.padding
@@ -22,6 +20,7 @@ import com.splunk.test.mobile.presentation.utils.widget.ThrottledIconButton
 import com.splunk.test.mobile.presentation.utils.widget.getSplunkTopAppBarVerticalPadding
 
 @Composable
+@ExperimentalMaterial3Api
 fun RepositoryDetailsTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
     onClickBack: () -> Unit,
@@ -61,6 +60,7 @@ fun RepositoryDetailsTopAppBar(
 
 @Preview
 @Composable
+@ExperimentalMaterial3Api
 private fun RepositoryDetailsTopAppBarPreview() {
     RepositoryDetailsTopAppBar(
         scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),

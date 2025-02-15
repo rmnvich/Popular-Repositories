@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalSharedTransitionApi::class)
-
 package com.splunk.test.mobile.presentation.screen.repository.list
 
 import androidx.compose.animation.AnimatedVisibility
@@ -24,6 +22,8 @@ import com.splunk.test.mobile.presentation.theme.ThemeViewModel
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
 fun RepositoryListScreen(
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -44,8 +44,9 @@ fun RepositoryListScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
 private fun RepositoryListScreen(
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -84,6 +85,8 @@ private fun RepositoryListScreen(
 
 @Preview
 @Composable
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
 private fun RepositoryListScreenPreview() {
     SharedTransitionLayout {
         AnimatedVisibility(visible = true) {

@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
-
 package com.splunk.test.mobile.presentation.screen.repository.list
 
 import androidx.compose.animation.AnimatedVisibility
@@ -50,6 +48,8 @@ import com.splunk.test.mobile.presentation.utils.widget.shimmerBrush
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
+@ExperimentalSharedTransitionApi
+@ExperimentalMaterial3Api
 fun RepositoryListContent(
     paddingValues: PaddingValues,
     scrollBehavior: TopAppBarScrollBehavior,
@@ -142,6 +142,7 @@ private fun ListHeader() {
     )
 }
 
+@ExperimentalSharedTransitionApi
 private fun LazyListScope.repositoryItemsState(
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -274,6 +275,8 @@ private fun FooterErrorState(onRetry: () -> Unit) {
 
 @Preview
 @Composable
+@ExperimentalMaterial3Api
+@ExperimentalSharedTransitionApi
 private fun RepositoryListContentPreview() {
     SharedTransitionLayout {
         AnimatedVisibility(visible = true) {
