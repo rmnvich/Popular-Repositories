@@ -59,7 +59,7 @@ private fun RepositoryDetailsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary)
+            .background(color = MaterialTheme.colorScheme.primary)
     ) {
         val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
         RepositoryDetailsTopAppBar(
