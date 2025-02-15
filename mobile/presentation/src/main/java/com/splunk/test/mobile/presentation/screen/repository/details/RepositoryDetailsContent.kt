@@ -98,7 +98,10 @@ fun RepositoryDetailsContent(
                     state = rememberSharedContentState(key = "$SHARED_KEY_REPOSITORY_CARD_CONTAINER${uiModel.id}"),
                     animatedVisibilityScope = animatedVisibilityScope,
                 ),
-            shape = RoundedCornerShape(cornerRadius),
+            shape = RoundedCornerShape(
+                topStart = cornerRadius,
+                topEnd = cornerRadius,
+            ),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
             ),

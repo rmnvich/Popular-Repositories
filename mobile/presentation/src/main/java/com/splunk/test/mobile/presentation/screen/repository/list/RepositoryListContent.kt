@@ -72,7 +72,7 @@ fun RepositoryListContent(
                 .clip(
                     shape = RoundedCornerShape(
                         topStart = cornerRadius,
-                        topEnd = cornerRadius
+                        topEnd = cornerRadius,
                     ),
                 )
                 .background(color = MaterialTheme.colorScheme.background)
