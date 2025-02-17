@@ -2,6 +2,7 @@ package com.splunk.test.mobile.presentation.di
 
 import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
+import com.splunk.test.core.utils.coroutines.CoroutineDispatchers
 import com.splunk.test.mobile.domain.get.GetTrendingRepositoriesUseCase
 import com.splunk.test.mobile.domain.model.GitHubRepository
 import com.splunk.test.mobile.presentation.screen.repository.list.paging.PagingConstants
@@ -18,8 +19,10 @@ object PagingModule {
     @Provides
     fun provideTrendingRepositoriesPagingSource(
         getTrendingRepositoriesUseCase: GetTrendingRepositoriesUseCase,
+        dispatchers: CoroutineDispatchers,
     ): PagingSource<Int, GitHubRepository> = TrendingRepositoriesPagingSource(
         getTrendingRepositoriesUseCase = getTrendingRepositoriesUseCase,
+        dispatchers = dispatchers,
     )
 
     @Provides
