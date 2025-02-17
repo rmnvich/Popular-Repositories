@@ -30,8 +30,8 @@ class RepositoryListViewModel @Inject constructor(
         pagingSourceFactory = { trendingRepositoriesPagingSource },
     ).flow
         .map { pagingData ->
-            pagingData.map { repository ->
-                withContext(dispatchers.default) {
+            withContext(dispatchers.default) {
+                pagingData.map { repository ->
                     repositoryUiMapper.map(repository)
                 }
             }

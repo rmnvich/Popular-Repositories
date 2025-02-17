@@ -4,12 +4,14 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import com.splunk.test.core.utils.coroutines.CoroutineDispatchers
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.runBlocking
@@ -17,6 +19,7 @@ import kotlinx.coroutines.runBlocking
 class ThemeDataStoreImpl @AssistedInject constructor(
     private val dataStore: DataStore<Preferences>,
     @Assisted private val viewModelScope: CoroutineScope,
+    dispatchers: CoroutineDispatchers,
 ) : ThemeDataStore {
 
     private val keyTheme = booleanPreferencesKey(KEY_IS_DARK_THEME)
@@ -27,6 +30,7 @@ class ThemeDataStoreImpl @AssistedInject constructor(
 
     override val isDarkTheme: StateFlow<Boolean> = dataStore.data
         .map { preferences -> preferences[keyTheme] ?: false }
+        .flowOn(dispatchers.io)
         .stateIn(viewModelScope, SharingStarted.Eagerly, initialTheme)
 
     override suspend fun saveTheme(isDark: Boolean) {
